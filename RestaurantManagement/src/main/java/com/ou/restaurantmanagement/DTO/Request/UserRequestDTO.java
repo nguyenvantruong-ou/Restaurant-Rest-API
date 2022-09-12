@@ -9,9 +9,12 @@ import javax.persistence.Id;
 import java.util.Date;
 
 public class UserRequestDTO implements IBaseRequest {
+    // phan trang
+    private int size;
+    private int page;
     // tìm kiếm
     private String type ;
-
+    private String kw;
     private int id;
     // tạo user
 
@@ -178,5 +181,29 @@ public class UserRequestDTO implements IBaseRequest {
 
     public void setFile(MultipartFile file) {
         this.file = file;
+    }
+
+    public int getSize() {
+        return size;
+    }
+
+    public void setSize(int size) {
+        this.size = size;
+    }
+
+    public int getPage() {
+        return page;
+    }
+
+    public void setPage(int page) {
+        this.page = page;
+    }
+
+    public String getKw() {
+        return kw;
+    }
+
+    public void setKw(String kw) {
+        this.kw = kw;
     }
 }

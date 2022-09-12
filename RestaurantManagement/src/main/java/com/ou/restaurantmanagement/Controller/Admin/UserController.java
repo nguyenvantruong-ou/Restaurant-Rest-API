@@ -26,17 +26,15 @@ public class UserController {
     private UserService _userService;
 
     // Lấy dánh danh sách hoặc tìm kiếm
-    @GetMapping("/get-user/{type}")
-    public IBaseResponse getUser(@PathVariable("type") String type ){
-        UserRequestDTO user = new UserRequestDTO();
-        user.setType(type);
-        return _userService.getUser(user);
+    @GetMapping("/get-user")
+    public IBaseResponse getUser(@RequestBody UserRequestDTO req){
+        return _userService.getUser(req);
     }
 
     // Tìm kiếm theo tên
     @GetMapping("/get-user-by-name")
-    public IBaseResponse getUserByName(@RequestParam(value = "kw") String kw){
-        return _userService.getUserByName(kw);
+    public IBaseResponse getUserByName(@RequestBody UserRequestDTO req){
+        return _userService.getUserByName(req);
     }
 
     // Xóa user theo id
