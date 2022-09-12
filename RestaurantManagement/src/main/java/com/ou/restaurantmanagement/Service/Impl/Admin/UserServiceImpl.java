@@ -26,11 +26,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public IBaseResponse getUser(IBaseRequest input) {
+        UserRequestDTO req = (UserRequestDTO) input;
         Object data = null;
         try {
-            UserRequestDTO req = (UserRequestDTO) input;
             if (req.getType().equals("all")) {
-                data = _userRepository.getlist(""); // ?
+                req.setKw("");
+                data = _userRepository.getList(req);
 
             } else {
                 int id = Integer.parseInt(req.getType());
@@ -41,19 +42,23 @@ public class UserServiceImpl implements UserService {
                 return new Common(Code.NOT_FOUND, data, "Tài khoản không tồn tại!");
             return new Common(Code.OK, data, "Tìm kiếm thành công");
         } catch (Exception e){
-            return new Common(Code.NOT_FOUND, data, "Vui lòng kiểm tra lại!");
+            return new Common(Code.NOT_FOUND, null, "Vui lòng kiểm tra lại!");
         }
     }
 
     @Override
-    public IBaseResponse getUserByName(String kw) {
+    public IBaseResponse getUserByName(IBaseRequest input) {
+        UserRequestDTO req = (UserRequestDTO) input;
+        if(req.getSize() > 0 && req.getPage() > 0 )
         try {
-            Object data =  _userRepository.getlist(kw);
+            Object data =  _userRepository.getList(input);
             return new Common(Code.OK, data, "Tìm kiếm thành công");
         }
         catch (Exception e){
             return new Common(Code.NOT_FOUND, null, "Vui lòng kiểm tra lại!");
         }
+        else
+            return new Common(Code.NOT_FOUND, null, "Vui lòng kiểm tra lại!");
     }
 
     @Override

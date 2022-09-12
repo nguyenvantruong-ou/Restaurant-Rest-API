@@ -1,47 +1,33 @@
-package com.ou.restaurantmanagement.Pojos;
-import javax.persistence.*;
+package com.ou.restaurantmanagement.DTO.Request;
+
+import org.springframework.web.multipart.MultipartFile;
+
 import java.math.BigDecimal;
 import java.util.List;
 
+public class LobbyRequestDTO implements IBaseRequest{
+    // phan trang
+    private int size;
+    private int page;
 
-@Entity
-@Table(name = "lobby")
-public class Lobby {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "lob_id", nullable = false)
-    private Integer id;
+    // tim kiem
+    private String kw;
 
-    @Column(name = "lob_name")
+    //
+
     private String lobName;
 
-    @Column(name = "lob_address")
     private String lobAddress;
 
-    @Column(name = "lob_price", precision = 12)
     private BigDecimal lobPrice;
 
-    @Column(name = "lob_is_active")
-    private Boolean lobIsActive;
-
-    @Column(name = "lob_total_table")
     private Integer lobTotalTable;
 
-    @Column(name = "lob_image")
-    private String lobImage;
+    private MultipartFile lobImage;
 
-    @Column(name = "lob_description", length = 500)
+    private List<MultipartFile> listImage;
+
     private String lobDescription;
-
-
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public String getLobName() {
         return lobName;
@@ -67,14 +53,6 @@ public class Lobby {
         this.lobPrice = lobPrice;
     }
 
-    public Boolean getLobIsActive() {
-        return lobIsActive;
-    }
-
-    public void setLobIsActive(Boolean lobIsActive) {
-        this.lobIsActive = lobIsActive;
-    }
-
     public Integer getLobTotalTable() {
         return lobTotalTable;
     }
@@ -83,12 +61,20 @@ public class Lobby {
         this.lobTotalTable = lobTotalTable;
     }
 
-    public String getLobImage() {
+    public MultipartFile getLobImage() {
         return lobImage;
     }
 
-    public void setLobImage(String lobImage) {
+    public void setLobImage(MultipartFile lobImage) {
         this.lobImage = lobImage;
+    }
+
+    public List<MultipartFile> getListImage() {
+        return listImage;
+    }
+
+    public void setListImage(List<MultipartFile> listImage) {
+        this.listImage = listImage;
     }
 
     public String getLobDescription() {
@@ -99,4 +85,27 @@ public class Lobby {
         this.lobDescription = lobDescription;
     }
 
+    public int getSize() {
+        return size;
+    }
+
+    public void setSize(int size) {
+        this.size = size;
+    }
+
+    public int getPage() {
+        return page;
+    }
+
+    public void setPage(int page) {
+        this.page = page;
+    }
+
+    public String getKw() {
+        return kw;
+    }
+
+    public void setKw(String kw) {
+        this.kw = kw;
+    }
 }

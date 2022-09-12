@@ -9,6 +9,6 @@ import org.springframework.stereotype.Service;
 public interface UserService {
     IBaseResponse getUser(IBaseRequest input);
     IBaseResponse deleteUser(int id);
-    IBaseResponse getUserByName(String kw);
+    IBaseResponse getUserByName(IBaseRequest input);
     IBaseResponse updateUserName(UserRequestDTO user);
 }

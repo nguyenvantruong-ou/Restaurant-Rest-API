@@ -1,7 +1,11 @@
 package com.ou.restaurantmanagement.Repository.Impl.Admin;
 
 import com.ou.restaurantmanagement.DTO.Constant.Role;
+import com.ou.restaurantmanagement.DTO.Request.IBaseRequest;
 import com.ou.restaurantmanagement.DTO.Request.UserRequestDTO;
+import com.ou.restaurantmanagement.DTO.Response.LobbyResponse;
+import com.ou.restaurantmanagement.DTO.Response.UserResponse;
+import com.ou.restaurantmanagement.Pojos.Lobby;
 import com.ou.restaurantmanagement.Pojos.User;
 import com.ou.restaurantmanagement.Repository.Admin.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,14 +25,31 @@ public class UserRepositoryImpl implements UserRepository {
     private EntityManager _em;
 
     @Override
-    public List<User> getlist(String kw) {
+    public UserResponse getList(IBaseRequest req) {
+        UserRequestDTO input = (UserRequestDTO) req;
         TypedQuery<User> tp = _em.createQuery("SELECT a FROM User a  " +
                 "WHERE (a.userFirstName LIKE :kw OR a.userLastName LIKE :kw)", User.class)
-                .setParameter("kw", "%"+ kw + "%");
-        List<User>  listUSer = tp.getResultList();
+                .setParameter("kw", "%"+ input.getKw() + "%");
+        List<User> listUser = tp.getResultList();
 
-        return listUSer;
+        UserResponse rep = new UserResponse();
+        rep.setNumberPage(maxPage(listUser.size(), input.getSize()));
+
+        tp.setFirstResult((input.getPage()-1)*input.getSize());
+        tp.setMaxResults(input.getSize());
+
+        listUser = tp.getResultList();
+        rep.setListUser(listUser);
+        return rep;
     }
+    private int maxPage(int size, int sizePage){
+        int max = size/sizePage;
+        int d = size%sizePage;
+        if (d > 0)
+            max ++;
+        return max;
+    }
+
 
     @Override
     public User getUserByID(int id) {
