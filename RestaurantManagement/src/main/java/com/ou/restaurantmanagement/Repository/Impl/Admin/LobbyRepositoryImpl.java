@@ -10,9 +10,11 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Repository
+@Transactional
 public class LobbyRepositoryImpl implements LobbyRepository {
     @Autowired
     private EntityManager _em;
@@ -46,5 +48,71 @@ public class LobbyRepositoryImpl implements LobbyRepository {
         if (d > 0)
             max ++;
         return max;
+    }
+
+    @Override
+    public boolean createLobby(IBaseRequest input) {
+        try{
+            LobbyRequestDTO req = (LobbyRequestDTO) input;
+            Lobby newL = new Lobby();
+            newL.setLobName(req.getLobName());
+            newL.setLobImage(req.getKey_Image());
+            newL.setLobAddress(req.getLobAddress());
+            newL.setLobPrice(req.getLobPrice());
+            newL.setLobTotalTable(req.getLobTotalTable());
+            newL.setLobIsActive(true);
+            newL.setLobDescription(req.getLobDescription());
+            _em.persist(newL);
+            return true;
+        }
+        catch (Exception e){
+            return false;
+        }
+    }
+
+    @Override
+    public Lobby getLobbyNew() {
+        TypedQuery<Lobby> tp = _em.createQuery("SELECT a FROM Lobby a order by a.id DESC", Lobby.class);
+        tp.setMaxResults(1);
+        return tp.getSingleResult();
+    }
+
+    @Override
+    public boolean deleteLobby(int id) {
+        try {
+            TypedQuery<Lobby> tp = _em.createQuery("SELECT a FROM Lobby a  " +
+                            "WHERE a.id = :id", Lobby.class)
+                    .setParameter("id", id);
+            Lobby lobby = tp.getSingleResult();
+            lobby.setLobIsActive(false);
+            _em.merge(lobby);
+            return true;
+        }
+        catch (Exception e){
+            return false;
+        }
+    }
+
+    @Override
+    public boolean updateLobby(IBaseRequest input) {
+        try{
+            LobbyRequestDTO req = (LobbyRequestDTO) input;
+            TypedQuery<Lobby> tp = _em.createQuery("SELECT a FROM Lobby a  " +
+                            "WHERE a.id = :id", Lobby.class)
+                    .setParameter("id", req.getId());
+            Lobby lobby = tp.getSingleResult();
+            lobby.setLobName(req.getLobName());
+            if(req.getKey_Image() != null && req.getKey_Image() != "")
+                lobby.setLobImage(req.getKey_Image());
+            lobby.setLobAddress(req.getLobAddress());
+            lobby.setLobPrice(req.getLobPrice());
+            lobby.setLobTotalTable(req.getLobTotalTable());
+            lobby.setLobDescription(req.getLobDescription());
+            _em.merge(lobby);
+            return true;
+        }
+        catch (Exception e){
+            return false;
+        }
     }
 }
