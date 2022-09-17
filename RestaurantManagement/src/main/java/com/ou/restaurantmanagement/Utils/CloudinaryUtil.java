@@ -8,9 +8,9 @@ public class CloudinaryUtil{
 //    @Autowired
 //    private static Environment env;
 
-    private static final String CLOUDINARY_CLOUD_NAME = "nguyenvantruong";
-    private static final String CLOUDINARY_API_KEY = "916527917943554";
-    private static final String CLOUDINARY_API_SECRET = "DiAnTXiMDDJ1JQ3dubTXH6jjNdg";
+    private static final String CLOUDINARY_CLOUD_NAME = "dfgdkopg4";
+    private static final String CLOUDINARY_API_KEY = "813944693655736";
+    private static final String CLOUDINARY_API_SECRET = "eA4yMUxXxo_s-RhTwLaLrcsit2c";
 
     public static Cloudinary getCloudinaryClient() {
         return new Cloudinary(ObjectUtils.asMap(

@@ -15,6 +15,7 @@ public class LobbyRequestDTO implements IBaseRequest{
 
     //
 
+    private int id;
     private String lobName;
 
     private String lobAddress;
@@ -24,9 +25,9 @@ public class LobbyRequestDTO implements IBaseRequest{
     private Integer lobTotalTable;
 
     private MultipartFile lobImage;
-
+    private String key_Image;
     private List<MultipartFile> listImage;
-
+    private List<String> listLinkImage;
     private String lobDescription;
 
     public String getLobName() {
@@ -107,5 +108,29 @@ public class LobbyRequestDTO implements IBaseRequest{
 
     public void setKw(String kw) {
         this.kw = kw;
+    }
+
+    public String getKey_Image() {
+        return key_Image;
+    }
+
+    public void setKey_Image(String key_Image) {
+        this.key_Image = key_Image;
+    }
+
+    public List<String> getListLinkImage() {
+        return listLinkImage;
+    }
+
+    public void setListLinkImage(List<String> listLinkImage) {
+        this.listLinkImage = listLinkImage;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

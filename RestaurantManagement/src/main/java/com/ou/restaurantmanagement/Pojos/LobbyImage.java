@@ -1,6 +1,7 @@
 package com.ou.restaurantmanagement.Pojos;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "lobby_image")
