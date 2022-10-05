@@ -31,11 +31,11 @@ public class ReportServiceImpl implements ReportService {
 
     @Override
     public IBaseResponse reportAmountOrder(IBaseRequest input) {
-            try {
-                return new Common(Code.OK, _reportRepository.reportAmountOrder(input), "Thành công");
-            }
-            catch (Exception e){
-                return new Common(Code.NOT_FOUND, null, "Vui lòng kiểm tra lại!");
-            }
+        try {
+            return new Common(Code.OK, _reportRepository.reportAmountOrder(input), "Thành công");
+        }
+        catch (Exception e){
+            return new Common(Code.NOT_FOUND, null, "Vui lòng kiểm tra lại!");
+        }
     }
 }
