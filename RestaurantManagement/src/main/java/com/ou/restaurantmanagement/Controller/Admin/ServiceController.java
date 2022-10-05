@@ -7,6 +7,7 @@ import com.ou.restaurantmanagement.DTO.Request.UserRequestDTO;
 import com.ou.restaurantmanagement.DTO.Response.IBaseResponse;
 import com.ou.restaurantmanagement.Service.Admin.ServiceService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -21,12 +22,15 @@ public class ServiceController {
         return _service.getListService(kw);
     }
 
+
     @PostMapping("/delete-service")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     public IBaseResponse deleteService(@RequestParam(value = "id") int id){
         return _service.deleteService(id);
     }
 
     @PostMapping("/create-service")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     public IBaseResponse createService(@RequestParam MultipartFile file, String service){
         ServiceRequestDTO req ;
         try {
@@ -39,6 +43,7 @@ public class ServiceController {
     }
 
     @PostMapping("/update-service")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     public IBaseResponse updateService(@RequestParam MultipartFile file, String service){
         ServiceRequestDTO req ;
         try {

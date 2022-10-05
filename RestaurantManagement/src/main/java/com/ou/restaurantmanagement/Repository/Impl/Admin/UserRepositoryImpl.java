@@ -96,8 +96,6 @@ public class UserRepositoryImpl implements UserRepository {
     public String checkRole(int role) {
         if(role == 1)
             return Role.ADMIN;
-        if(role == 2)
-            return Role.STAFF;
         return Role.USER;
     }
 
@@ -124,6 +122,14 @@ public class UserRepositoryImpl implements UserRepository {
         }catch(Exception e){
             return false;
         }
+    }
+
+    @Override
+    public User getUserByUsername(String username) {
+        TypedQuery<User> tp = _em.createQuery("SELECT a FROM User a  " +
+                        "WHERE a.userUsername = :username", User.class)
+                .setParameter("username",username);
+        return tp.getSingleResult();
     }
 
 }

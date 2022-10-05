@@ -101,6 +101,15 @@ public class UserServiceImpl implements UserService {
             }
     }
 
+    @Override
+    public IBaseResponse getUserByUsername(String username) {
+        try {
+            return new Common(Code.OK, _userRepository.getUserByUsername(username), "Thành công");
+        }catch (Exception e){
+            return new Common(Code.NOT_FOUND, null, "Lấy thất bại");
+        }
+    }
+
     private String upImage(MultipartFile f){
         Cloudinary cloudinary = CloudinaryUtil.getCloudinaryClient();
         try {

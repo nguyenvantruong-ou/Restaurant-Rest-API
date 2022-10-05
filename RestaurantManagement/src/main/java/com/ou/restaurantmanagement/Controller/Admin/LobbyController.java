@@ -8,6 +8,7 @@ import com.ou.restaurantmanagement.DTO.Response.IBaseResponse;
 import com.ou.restaurantmanagement.Service.Admin.LobbyService;
 import com.ou.restaurantmanagement.Service.Impl.Admin.LobbyServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -28,6 +29,7 @@ public class LobbyController {
     }
 
     @PostMapping("/create-lobby")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     public IBaseResponse createLobby(@RequestParam("file") MultipartFile file,
                                      @RequestParam("listFile") List<MultipartFile> listFile,
                                      String lobby){
@@ -43,11 +45,13 @@ public class LobbyController {
     }
 
     @PostMapping("/delete-lobby")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     public IBaseResponse deleteLobby(@RequestParam(value = "id") int id){
         return _lobbyService.deleteLobby(id);
     }
 
     @PostMapping("/update-lobby")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     public IBaseResponse updateLobby(@RequestParam("file") MultipartFile file,
                                      @RequestParam("listFile") List<MultipartFile> listFile,
                                      String lobby){

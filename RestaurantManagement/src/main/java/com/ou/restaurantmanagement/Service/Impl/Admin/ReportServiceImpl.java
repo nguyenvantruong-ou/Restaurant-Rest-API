@@ -1,6 +1,7 @@
 package com.ou.restaurantmanagement.Service.Impl.Admin;
 
 import com.ou.restaurantmanagement.DTO.Constant.Code;
+import com.ou.restaurantmanagement.DTO.Request.IBaseRequest;
 import com.ou.restaurantmanagement.DTO.Response.Common;
 import com.ou.restaurantmanagement.DTO.Response.IBaseResponse;
 import com.ou.restaurantmanagement.Repository.Admin.ReportRepository;
@@ -19,28 +20,22 @@ public class ReportServiceImpl implements ReportService {
     }
 
     @Override
-    public IBaseResponse reportTotalMoney(int year) {
-        if(year > 0)
-            try {
-                return new Common(Code.OK, _reportRepository.reportTotalMoney(year), "Thành công");
-            }
-            catch (Exception e){
-                return new Common(Code.NOT_FOUND, null, "Vui lòng kiểm tra lại!");
-            }
-        else
-            return new Common(Code.INVALID_REQUEST, null, "Vui lòng kiểm tra lại!");
+    public IBaseResponse reportTotalMoney(IBaseRequest input) {
+        try {
+            return new Common(Code.OK, _reportRepository.reportTotalMoney(input), "Thành công");
+        }
+        catch (Exception e){
+            return new Common(Code.NOT_FOUND, null, "Vui lòng kiểm tra lại!");
+        }
     }
 
     @Override
-    public IBaseResponse reportAmountOrder(int year) {
-        if(year > 0)
+    public IBaseResponse reportAmountOrder(IBaseRequest input) {
             try {
-                return new Common(Code.OK, _reportRepository.reportAmountOrder(year), "Thành công");
+                return new Common(Code.OK, _reportRepository.reportAmountOrder(input), "Thành công");
             }
             catch (Exception e){
                 return new Common(Code.NOT_FOUND, null, "Vui lòng kiểm tra lại!");
             }
-        else
-            return new Common(Code.INVALID_REQUEST, null, "Vui lòng kiểm tra lại!");
     }
 }

@@ -9,6 +9,7 @@ import com.ou.restaurantmanagement.DTO.Response.Common;
 import com.ou.restaurantmanagement.DTO.Response.IBaseResponse;
 import com.ou.restaurantmanagement.Service.Admin.MenuService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -24,11 +25,13 @@ public class MenuController {
     }
 
     @GetMapping("/delete-menu")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     public IBaseResponse deleteMenu(@RequestParam(value = "id") int id){
         return _menuService.deleteMenu(id);
     }
 
     @PostMapping("/update-menu")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     public IBaseResponse updateMenu(@RequestParam("file")MultipartFile file, String menu){
         MenuRequestDTO req;
         try {
