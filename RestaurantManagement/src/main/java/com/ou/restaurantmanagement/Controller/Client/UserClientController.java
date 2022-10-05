@@ -1,10 +1,14 @@
 package com.ou.restaurantmanagement.Controller.Client;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ou.restaurantmanagement.DTO.Constant.Code;
 import com.ou.restaurantmanagement.DTO.Request.LoginRequestDTO;
+import com.ou.restaurantmanagement.DTO.Request.RegisterRequestDTO;
 import com.ou.restaurantmanagement.DTO.Response.Common;
 import com.ou.restaurantmanagement.DTO.Response.IBaseResponse;
 import com.ou.restaurantmanagement.DTO.Response.JwtResponse;
+import com.ou.restaurantmanagement.Service.Client.UserClientService;
 import com.ou.restaurantmanagement.Utils.Jwt.JwtUtil;
 import com.ou.restaurantmanagement.Utils.Jwt.UserPrinciple.UserPrinciple;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +18,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
 
 @RestController
 @RequestMapping("/api")
@@ -25,10 +31,27 @@ public class UserClientController {
     @Autowired
     JwtUtil jwtUtil;
 
-//    @PostMapping("/register")
-//    public IBaseResponse register(@RequestBody ){
-//
-//    }
+    @Autowired
+    private UserClientService _userService;
+
+    @PostMapping("/register")
+    public IBaseResponse register(@RequestParam("file") MultipartFile f, String user){
+        RegisterRequestDTO u;
+        try {
+            u = new ObjectMapper().readValue(user, RegisterRequestDTO.class);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+        if(f.getOriginalFilename() != "")
+            u.setFile(f);
+
+        return _userService.register(u);
+    }
+
+    @PostMapping("/confirm-email")
+    public IBaseResponse confirm(@RequestParam int code){
+        return _userService.confirm(code);
+    }
 
     @PostMapping("/login")
     public IBaseResponse login(@RequestBody LoginRequestDTO login){

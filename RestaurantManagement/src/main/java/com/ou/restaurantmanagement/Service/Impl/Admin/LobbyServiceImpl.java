@@ -47,10 +47,10 @@ public class LobbyServiceImpl implements LobbyService {
         LobbyRequestDTO req = (LobbyRequestDTO) input;
         List<String> listImage = new ArrayList<>() ;
         try{
-            req.setKey_Image(upImage(req.getLobImage()));
+            req.setKey_Image(CloudinaryUtil.upImage(req.getLobImage()));
             req.getListImage().forEach(s->
             {
-                listImage.add(upImage(s));
+                listImage.add(CloudinaryUtil.upImage(s));
             });
             if(_lobbyRep.createLobby(req)){
                 _image.saveImage(listImage, _lobbyRep.getLobbyNew());}
@@ -80,11 +80,11 @@ public class LobbyServiceImpl implements LobbyService {
             LobbyRequestDTO req = (LobbyRequestDTO) input;
             List<String> listImage = new ArrayList<>();
             if(req.getLobImage().getSize() > 0)
-                req.setKey_Image(upImage(req.getLobImage()));
+                req.setKey_Image(CloudinaryUtil.upImage(req.getLobImage()));
             if(req.getListImage().get(0).getSize() > 0) {
                 req.getListImage().forEach(s ->
                 {
-                    listImage.add(upImage(s));
+                    listImage.add(CloudinaryUtil.upImage(s));
                 });
             }
             // update lobby
@@ -111,14 +111,4 @@ public class LobbyServiceImpl implements LobbyService {
             return new Common(Code.INVALID, null, "Sửa thất bại! Vui lòng kiểm tra lại!");
     }
 
-    private String upImage(MultipartFile f){
-        Cloudinary cloudinary = CloudinaryUtil.getCloudinaryClient();
-        try {
-            Map r = cloudinary.uploader().upload(f.getBytes(),
-                    ObjectUtils.asMap("resource_type", "auto"));
-            return (String) r.get("secure_url");
-        } catch (IOException e) {
-            return null;
-        }
-    }
 }

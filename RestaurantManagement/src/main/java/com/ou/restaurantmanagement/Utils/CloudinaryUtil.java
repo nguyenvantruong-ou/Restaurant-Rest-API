@@ -24,4 +24,14 @@ public class CloudinaryUtil{
                 "secure", true));
     }
 
+    public static String upImage(MultipartFile f){
+        Cloudinary cloudinary = CloudinaryUtil.getCloudinaryClient();
+        try {
+            Map r = cloudinary.uploader().upload(f.getBytes(),
+                    ObjectUtils.asMap("resource_type", "auto"));
+            return (String) r.get("secure_url");
+        } catch (IOException e) {
+            return null;
+        }
+    }
 }
