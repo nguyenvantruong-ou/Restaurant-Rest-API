@@ -18,4 +18,5 @@ public interface UserRepository {
     boolean isUsername(String username, int id);
     String checkRole(int role);
     boolean updateUser(UserRequestDTO user);
+    User getUserByUsername(String username);
 }

@@ -11,4 +11,5 @@ public interface UserService {
     IBaseResponse deleteUser(int id);
     IBaseResponse getUserByName(IBaseRequest input);
     IBaseResponse updateUserName(UserRequestDTO user);
+    IBaseResponse getUserByUsername(String username);
 }
