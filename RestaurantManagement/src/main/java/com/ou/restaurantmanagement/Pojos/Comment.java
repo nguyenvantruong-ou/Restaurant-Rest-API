@@ -28,6 +28,9 @@ public class Comment {
     @JoinColumn(name = "lobby_id")
     private Lobby lobby;
 
+    @Column(name = "is_incognito")
+    private boolean isIncognito;
+
     public Integer getId() {
         return id;
     }
@@ -76,4 +79,11 @@ public class Comment {
         this.createdDay = createdDay;
     }
 
+    public boolean isIncognito() {
+        return isIncognito;
+    }
+
+    public void setIncognito(boolean incognito) {
+        isIncognito = incognito;
+    }
 }
