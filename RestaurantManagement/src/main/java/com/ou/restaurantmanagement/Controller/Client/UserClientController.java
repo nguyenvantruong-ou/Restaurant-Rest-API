@@ -62,11 +62,16 @@ public class UserClientController {
             String token = null;
             token = jwtUtil.createToken(authentication);
             UserPrinciple userPrinciple = (UserPrinciple) authentication.getPrincipal();
-            return new Common(Code.OK, new JwtResponse(token,userPrinciple.getUsername(),
+            return new Common(Code.OK, new JwtResponse(token,userPrinciple.getId(), userPrinciple.getUsername(),
                     userPrinciple.getAuthorities()), "Đăng nhập thành công");
         }
         catch (Exception e){
             return new Common(Code.INVALID, null, "Tên tài khoản hoặc mật khẩu sai! Vui lòng kiểm tra lại!");
         }
+    }
+
+    @PostMapping("/logout")
+    public IBaseResponse logout(){
+        return new Common(Code.OK, null, "okk");
     }
 }

@@ -7,9 +7,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 public class UserPrinciple implements UserDetails {
     private int id;
@@ -19,7 +17,7 @@ public class UserPrinciple implements UserDetails {
     private Collection<? extends GrantedAuthority> role;
 
     public UserPrinciple(int id, String username, String password,Collection<? extends GrantedAuthority> role) {
-        this.id = id;
+        this.setId(id);
         this.username = username;
         this.password = password;
         this.role = role;
@@ -74,5 +72,13 @@ public class UserPrinciple implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }
