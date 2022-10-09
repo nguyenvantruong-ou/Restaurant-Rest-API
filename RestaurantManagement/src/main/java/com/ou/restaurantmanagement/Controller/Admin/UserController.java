@@ -29,20 +29,31 @@ public class UserController {
     // Lấy dánh danh sách hoặc tìm kiếm
     @GetMapping("/get-user")
     @PreAuthorize("hasAnyAuthority('ADMIN')")
-    public IBaseResponse getUser(@RequestBody UserRequestDTO req){
+    @CrossOrigin
+    public IBaseResponse getUser(@RequestParam Map<String, String> params){
+        UserRequestDTO req = new UserRequestDTO();
+        req.setSize(Integer.valueOf(params.get("size")));
+        req.setPage(Integer.valueOf(params.get("page")));
+        req.setType(params.get("type"));
         return _userService.getUser(req);
     }
 
     // Tìm kiếm theo tên
     @GetMapping("/get-user-by-name")
     @PreAuthorize("hasAnyAuthority('ADMIN')")
-    public IBaseResponse getUserByName(@RequestBody UserRequestDTO req){
+    @CrossOrigin
+    public IBaseResponse getUserByName(@RequestParam Map<String, String> params){
+        UserRequestDTO req = new UserRequestDTO();
+        req.setSize(Integer.valueOf(params.get("size")));
+        req.setPage(Integer.valueOf(params.get("page")));
+        req.setKw(params.get("kw"));
         return _userService.getUserByName(req);
     }
 
     // Xóa user theo id
     @PostMapping("/delete-user")
     @PreAuthorize("hasAnyAuthority('ADMIN')")
+    @CrossOrigin
     public IBaseResponse getUser(@RequestParam(value = "id") int id){
         return _userService.deleteUser(id);
     }
@@ -50,6 +61,7 @@ public class UserController {
     // sửa thông tin user
     @PostMapping("/update-user")
     @PreAuthorize("hasAnyAuthority('ADMIN','USER')")
+    @CrossOrigin
     public IBaseResponse updateUser(@RequestParam("file") MultipartFile f, String user){
         UserRequestDTO u;
         try {

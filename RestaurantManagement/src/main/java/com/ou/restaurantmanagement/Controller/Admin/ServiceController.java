@@ -18,6 +18,8 @@ public class ServiceController {
     private ServiceService _service;
 
     @GetMapping("/get-list-service")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    @CrossOrigin
     public IBaseResponse getListService(@RequestParam(value = "kw") String kw){
         return _service.getListService(kw);
     }
@@ -25,12 +27,14 @@ public class ServiceController {
 
     @PostMapping("/delete-service")
     @PreAuthorize("hasAnyAuthority('ADMIN')")
+    @CrossOrigin
     public IBaseResponse deleteService(@RequestParam(value = "id") int id){
         return _service.deleteService(id);
     }
 
     @PostMapping("/create-service")
     @PreAuthorize("hasAnyAuthority('ADMIN')")
+    @CrossOrigin
     public IBaseResponse createService(@RequestParam MultipartFile file, String service){
         ServiceRequestDTO req ;
         try {
@@ -44,6 +48,7 @@ public class ServiceController {
 
     @PostMapping("/update-service")
     @PreAuthorize("hasAnyAuthority('ADMIN')")
+    @CrossOrigin
     public IBaseResponse updateService(@RequestParam MultipartFile file, String service){
         ServiceRequestDTO req ;
         try {

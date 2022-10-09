@@ -17,18 +17,21 @@ public class CommentClientController {
     private CommentClientService _commentService;
 
     @GetMapping("/get-list-comment")
+    @CrossOrigin
     public IBaseResponse getListComment(@RequestParam("lob_id") int lob_id){
         return _commentService.getListCommentByLobID(lob_id);
     }
 
     @PostMapping("/check-permission-comment")
     @PreAuthorize("hasAnyAuthority('USER')")
+    @CrossOrigin
     public IBaseResponse checkPermission(@RequestBody PermissionComment input){
         return _commentService.checkPermission(input);
     }
 
     @PostMapping("/add-comment")
     @PreAuthorize("hasAnyAuthority('USER')")
+    @CrossOrigin
     public IBaseResponse addComment(@RequestBody CommentRequestDTO input){
         return _commentService.addComment(input);
     }
