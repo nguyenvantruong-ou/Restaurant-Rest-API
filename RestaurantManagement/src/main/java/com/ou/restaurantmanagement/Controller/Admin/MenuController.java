@@ -2,10 +2,7 @@ package com.ou.restaurantmanagement.Controller.Admin;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.ou.restaurantmanagement.DTO.Constant.Code;
 import com.ou.restaurantmanagement.DTO.Request.MenuRequestDTO;
-import com.ou.restaurantmanagement.DTO.Request.UserRequestDTO;
-import com.ou.restaurantmanagement.DTO.Response.Common;
 import com.ou.restaurantmanagement.DTO.Response.IBaseResponse;
 import com.ou.restaurantmanagement.Service.Admin.MenuService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,11 +17,13 @@ public class MenuController {
     private MenuService _menuService;
 
     @GetMapping("/get-list-menu")
+    @CrossOrigin
     public IBaseResponse getListMenu(){
         return _menuService.getListMenu();
     }
 
     @GetMapping("/delete-menu")
+    @CrossOrigin
     @PreAuthorize("hasAnyAuthority('ADMIN')")
     public IBaseResponse deleteMenu(@RequestParam(value = "id") int id){
         return _menuService.deleteMenu(id);
@@ -32,6 +31,7 @@ public class MenuController {
 
     @PostMapping("/update-menu")
     @PreAuthorize("hasAnyAuthority('ADMIN')")
+    @CrossOrigin
     public IBaseResponse updateMenu(@RequestParam("file")MultipartFile file, String menu){
         MenuRequestDTO req;
         try {

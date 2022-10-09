@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api")
@@ -24,12 +25,20 @@ public class LobbyController {
         _lobbyService = new LobbyServiceImpl();
     }
     @GetMapping("/get-list-lobby")
-    public IBaseResponse getListLobby(@RequestBody LobbyRequestDTO req){
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    @CrossOrigin
+    public IBaseResponse getListLobby(@RequestParam Map<String, String> params){
+        LobbyRequestDTO req = new LobbyRequestDTO();
+        req.setSize(Integer.valueOf(params.get("size")));
+        req.setPage(Integer.valueOf(params.get("page")));
+        req.setKw(params.get("kw"));
+
         return _lobbyService.ReadLobby(req);
     }
 
     @PostMapping("/create-lobby")
     @PreAuthorize("hasAnyAuthority('ADMIN')")
+    @CrossOrigin
     public IBaseResponse createLobby(@RequestParam("file") MultipartFile file,
                                      @RequestParam("listFile") List<MultipartFile> listFile,
                                      String lobby){
@@ -46,12 +55,14 @@ public class LobbyController {
 
     @PostMapping("/delete-lobby")
     @PreAuthorize("hasAnyAuthority('ADMIN')")
+    @CrossOrigin
     public IBaseResponse deleteLobby(@RequestParam(value = "id") int id){
         return _lobbyService.deleteLobby(id);
     }
 
     @PostMapping("/update-lobby")
     @PreAuthorize("hasAnyAuthority('ADMIN')")
+    @CrossOrigin
     public IBaseResponse updateLobby(@RequestParam("file") MultipartFile file,
                                      @RequestParam("listFile") List<MultipartFile> listFile,
                                      String lobby){

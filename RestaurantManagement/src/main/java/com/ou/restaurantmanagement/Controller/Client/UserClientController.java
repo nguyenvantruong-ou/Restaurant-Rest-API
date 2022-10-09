@@ -35,6 +35,7 @@ public class UserClientController {
     private UserClientService _userService;
 
     @PostMapping("/register")
+    @CrossOrigin
     public IBaseResponse register(@RequestParam("file") MultipartFile f, String user){
         RegisterRequestDTO u;
         try {
@@ -49,11 +50,13 @@ public class UserClientController {
     }
 
     @PostMapping("/confirm-email")
+    @CrossOrigin
     public IBaseResponse confirm(@RequestParam int code){
         return _userService.confirm(code);
     }
 
     @PostMapping("/login")
+    @CrossOrigin
     public IBaseResponse login(@RequestBody LoginRequestDTO login){
         try{
             Authentication authentication = authenticationManager.authenticate(
@@ -71,6 +74,7 @@ public class UserClientController {
     }
 
     @PostMapping("/logout")
+    @CrossOrigin
     public IBaseResponse logout(){
         return new Common(Code.OK, null, "okk");
     }

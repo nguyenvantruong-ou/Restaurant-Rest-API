@@ -17,7 +17,7 @@ import javax.mail.MessagingException;
 import java.io.UnsupportedEncodingException;
 
 @Service
-public class UserClientService implements com.ou.restaurantmanagement.Service.Client.UserClientService {
+public class UserClientServiceImpl implements com.ou.restaurantmanagement.Service.Client.UserClientService {
     private static RegisterRequestDTO register;
     private static int code;
 
