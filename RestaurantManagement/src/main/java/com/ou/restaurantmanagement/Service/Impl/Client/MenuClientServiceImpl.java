@@ -14,12 +14,17 @@ public class MenuClientServiceImpl implements MenuClientService {
     private MenuClientRepository _menuRepository;
 
     @Override
-    public IBaseResponse getListMenu() {
+    public IBaseResponse getListMenu(String sort) {
         try {
-            return new Common(Code.OK, _menuRepository.getListMenu(), "Lấy danh sách thành công");
+            if(sort.trim().length() > 0) {
+                sort = sort.trim().toLowerCase();
+                return new Common(Code.OK, _menuRepository.getListMenu(sort), "Lấy danh sách thành công");
+            }
+            return new Common(Code.INVALID_REQUEST, null, "Request không hợp lệ");
         }catch (Exception e){
             System.err.println(e);
-            return new Common(Code.NOT_FOUND, null, "vui lòng kiểm tra lại!");
+            return new Common(Code.NOT_FOUND, null, "Vui lòng kiểm tra lại!");
         }
     }
+
 }

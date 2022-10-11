@@ -17,11 +17,22 @@ public class MenuClientRepositoryImpl implements MenuClientRepository {
     private EntityManager _em;
 
     @Override
-    public List<MenuResponse> getListMenu() {
-        List<Menu> tp = _em.createQuery("SELECT m FROM Menu m WHERE m.menuIsActive = true" , Menu.class)
-                .getResultList();
+    public List<MenuResponse> getListMenu(String sort) {
+        List<Menu> listMenu;
+        if(sort.compareTo("default") == 0) {          // default
+            listMenu = _em.createQuery("SELECT m FROM Menu m WHERE m.menuIsActive = true", Menu.class)
+                    .getResultList();
+        }
+        else if (sort.compareTo("ascending") == 0) {  // ascending
+                listMenu = _em.createQuery("SELECT m FROM Menu m WHERE m.menuIsActive = true " +
+                        "ORDER BY m.menuPrice asc ", Menu.class).getResultList();
+            }
+            else {                     // decrease
+                listMenu = _em.createQuery("SELECT m FROM Menu m WHERE m.menuIsActive = true " +
+                        "ORDER BY m.menuPrice desc ", Menu.class).getResultList();
+            }
         List<MenuResponse> results = new ArrayList<>();
-        tp.forEach(s->{
+        listMenu.forEach(s->{
             MenuResponse mr = new MenuResponse();
             mr.setId(s.getId());
             mr.setMenuName(s.getMenuName());
@@ -31,6 +42,7 @@ public class MenuClientRepositoryImpl implements MenuClientRepository {
             results.add(mr);
         });
         return results;
+
     }
 
     private List<Dish> getListDish(int menu_id){
