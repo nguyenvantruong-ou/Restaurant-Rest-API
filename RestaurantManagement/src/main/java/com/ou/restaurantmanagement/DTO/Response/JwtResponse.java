@@ -3,18 +3,20 @@ package com.ou.restaurantmanagement.DTO.Response;
 import org.springframework.security.core.GrantedAuthority;
 
 import java.util.Collection;
+import java.util.Dictionary;
+import java.util.List;
 
 public class JwtResponse {
     private String token;
     private int userID;
     private String username;
-    private Collection<?extends GrantedAuthority> roles;
+    private String roles;
 
     public JwtResponse(String token, int user_id, String username, Collection<? extends GrantedAuthority> roles) {
         this.setToken(token);
         this.setUserID(user_id);
         this.setUsername(username);
-        this.setRoles(roles);
+        this.setRoles(roles.stream().toList().get(0).toString());
     }
 
     public String getToken() {
@@ -33,11 +35,11 @@ public class JwtResponse {
         this.username = username;
     }
 
-    public Collection<? extends GrantedAuthority> getRoles() {
+    public String getRoles() {
         return roles;
     }
 
-    public void setRoles(Collection<? extends GrantedAuthority> roles) {
+    public void setRoles(String roles) {
         this.roles = roles;
     }
 

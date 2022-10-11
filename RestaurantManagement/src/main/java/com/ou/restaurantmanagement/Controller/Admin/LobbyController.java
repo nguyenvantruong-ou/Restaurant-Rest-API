@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/admin")
 public class LobbyController {
     @Autowired
     private LobbyService _lobbyService;

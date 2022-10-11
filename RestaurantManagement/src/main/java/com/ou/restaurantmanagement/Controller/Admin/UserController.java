@@ -21,7 +21,7 @@ import java.io.IOException;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/admin")
 public class UserController {
     @Autowired
     private UserService _userService;
