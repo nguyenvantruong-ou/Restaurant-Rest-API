@@ -11,7 +11,7 @@ import java.time.LocalDate;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/admin")
 public class ReportController {
     @Autowired
     private ReportService _reportService;

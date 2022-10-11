@@ -34,7 +34,7 @@ public class UserClientController {
     @Autowired
     private UserClientService _userService;
 
-    @PostMapping("/register")
+    @PostMapping("/client/register")
     @CrossOrigin
     public IBaseResponse register(@RequestParam("file") MultipartFile f, String user){
         RegisterRequestDTO u;
@@ -49,7 +49,7 @@ public class UserClientController {
         return _userService.register(u);
     }
 
-    @PostMapping("/confirm-email")
+    @PostMapping("/client/confirm-email")
     @CrossOrigin
     public IBaseResponse confirm(@RequestParam int code){
         return _userService.confirm(code);
