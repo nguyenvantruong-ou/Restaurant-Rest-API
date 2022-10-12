@@ -2,6 +2,7 @@ package com.ou.restaurantmanagement.Pojos;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.Date;
 
 @Entity
 @Table(name = "feedback")
@@ -15,7 +16,7 @@ public class Feedback {
     private String feedContent;
 
     @Column(name = "feed_created_date")
-    private LocalDate feedCreatedDate;
+    private Date feedCreatedDate;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
@@ -48,11 +49,11 @@ public class Feedback {
         this.feedContent = feedContent;
     }
 
-    public LocalDate getFeedCreatedDate() {
+    public Date getFeedCreatedDate() {
         return feedCreatedDate;
     }
 
-    public void setFeedCreatedDate(LocalDate feedCreatedDate) {
+    public void setFeedCreatedDate(Date feedCreatedDate) {
         this.feedCreatedDate = feedCreatedDate;
     }
 
