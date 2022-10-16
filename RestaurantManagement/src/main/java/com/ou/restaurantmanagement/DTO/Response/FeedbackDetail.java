@@ -1,17 +1,17 @@
 package com.ou.restaurantmanagement.DTO.Response;
 
-import java.time.LocalDate;
+import java.util.Date;
 
 public class FeedbackDetail {
     private int id;
-    private LocalDate feedCreatedDate;
+    private Date feedCreatedDate;
     private String content;
 
-    public LocalDate getFeedCreatedDate() {
+    public Date getFeedCreatedDate() {
         return feedCreatedDate;
     }
 
-    public void setFeedCreatedDate(LocalDate feedCreatedDate) {
+    public void setFeedCreatedDate(Date feedCreatedDate) {
         this.feedCreatedDate = feedCreatedDate;
     }
 

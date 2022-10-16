@@ -15,7 +15,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 @Transactional
@@ -53,10 +52,14 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public User getUserByID(int id) {
-        TypedQuery<User> tp = _em.createQuery("SELECT a FROM User a  " +
-                "WHERE a.id = :id", User.class)
-                .setParameter("id",id);
-        return tp.getSingleResult();
+        try {
+            User tp = _em.createQuery("SELECT a FROM User a  " +
+                            "WHERE a.id = :id", User.class)
+                    .setParameter("id", id).getSingleResult();
+            return tp;
+        }catch (Exception e){
+            return null;
+        }
     }
 
     @Override

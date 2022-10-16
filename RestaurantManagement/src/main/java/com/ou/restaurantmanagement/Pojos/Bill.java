@@ -26,7 +26,7 @@ public class Bill {
     private BigDecimal billTotalMoney;
 
     @Column(name = "bill_note", length = 500)
-    private BigDecimal billNote;
+    private String billNote;
 
     public Integer getId() {
         return id;
@@ -53,11 +53,11 @@ public class Bill {
         this.billTotalMoney = billTotalMoney;
     }
 
-    public BigDecimal getBillNote() {
+    public String getBillNote() {
         return billNote;
     }
 
-    public void setBillNote(BigDecimal billNote) {
+    public void setBillNote(String billNote) {
         this.billNote = billNote;
     }
 
