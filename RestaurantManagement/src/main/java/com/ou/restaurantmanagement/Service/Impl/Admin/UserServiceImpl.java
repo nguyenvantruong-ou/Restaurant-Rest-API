@@ -38,7 +38,7 @@ public class UserServiceImpl implements UserService {
                 data = _userRepository.getUserByID(id);
             }
 
-            if (data == Optional.empty())
+            if (data == null)
                 return new Common(Code.NOT_FOUND, data, "Tài khoản không tồn tại!");
             return new Common(Code.OK, data, "Tìm kiếm thành công");
         } catch (Exception e){

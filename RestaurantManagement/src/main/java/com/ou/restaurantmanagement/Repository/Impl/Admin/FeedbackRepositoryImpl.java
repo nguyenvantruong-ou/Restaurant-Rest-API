@@ -11,6 +11,7 @@ import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Repository
@@ -76,7 +77,7 @@ public class FeedbackRepositoryImpl implements FeedbackRepository {
             FeedbackDetail f = new FeedbackDetail();
             f.setId((int) s[0]);
             f.setContent((String) s[1]);
-            f.setFeedCreatedDate((LocalDate) s[2]);
+            f.setFeedCreatedDate((Date) s[2]);
             results.add(f);
         });
         updateRead(results);
