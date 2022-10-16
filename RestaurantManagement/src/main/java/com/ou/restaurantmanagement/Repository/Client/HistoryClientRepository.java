@@ -8,5 +8,4 @@ import java.util.List;
 public interface HistoryClientRepository {
     List<HistoryResponse> getListOrder(int user_id);
     List<HistoryStaffResponse> getListOrderByStaff(String phoneNumber);
-
 }
