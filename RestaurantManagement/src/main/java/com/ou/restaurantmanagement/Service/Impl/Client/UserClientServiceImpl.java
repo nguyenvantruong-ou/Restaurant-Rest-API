@@ -8,6 +8,7 @@ import com.ou.restaurantmanagement.DTO.Response.IBaseResponse;
 import com.ou.restaurantmanagement.Repository.Admin.UserRepository;
 import com.ou.restaurantmanagement.Repository.Client.UserClientRepository;
 import com.ou.restaurantmanagement.Utils.CloudinaryUtil;
+import com.ou.restaurantmanagement.Utils.Jwt.JwtUtil;
 import com.ou.restaurantmanagement.Utils.MailUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -21,6 +22,8 @@ public class UserClientServiceImpl implements com.ou.restaurantmanagement.Servic
     private static RegisterRequestDTO register;
     private static int code;
 
+    private final String jwtSecret = "secretKeyBytenguyenvanjwttokengquangnamdananatokjjsjwttokenffdsgsfgfghhghjfhjgjdgsfgsdftgdfsgdfggfggg";
+
     @Autowired
     private PasswordEncoder passwordEncoder;
 
@@ -29,6 +32,7 @@ public class UserClientServiceImpl implements com.ou.restaurantmanagement.Servic
 
     @Autowired
     private UserRepository _checkValidate;
+
     @Override
     public IBaseResponse register(IBaseRequest input) {
         register = (RegisterRequestDTO) input;
@@ -70,5 +74,16 @@ public class UserClientServiceImpl implements com.ou.restaurantmanagement.Servic
                 return new Common(Code.INVALID, null, "Vui lòng kiểm tra lại!");
         }
         return new Common(Code.INVALID, null, "Mã xác nhận sai!");
+    }
+
+    @Override
+    public IBaseResponse logout() {
+        try {
+            JwtUtil util = new JwtUtil();
+            util.setSecret(jwtSecret + (int) Math.floor(((Math.random() * 899999999) + 100000000)));
+            return new Common(Code.OK, null, "Đăng xuất thành công");
+        } catch (Exception e){
+            return new Common(Code.INVALID, null, "Đăng xuất thất bại!");
+        }
     }
 }

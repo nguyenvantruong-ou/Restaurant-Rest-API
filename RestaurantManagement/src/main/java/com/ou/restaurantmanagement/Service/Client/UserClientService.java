@@ -6,4 +6,5 @@ import com.ou.restaurantmanagement.DTO.Response.IBaseResponse;
 public interface UserClientService {
     IBaseResponse register(IBaseRequest input);
     IBaseResponse confirm(int code);
+    IBaseResponse logout();
 }

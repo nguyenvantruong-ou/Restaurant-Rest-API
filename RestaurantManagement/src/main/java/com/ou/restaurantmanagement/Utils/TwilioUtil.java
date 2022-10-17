@@ -7,7 +7,7 @@ import com.twilio.type.PhoneNumber;
 
 public class TwilioUtil {
     private final static String Account_SID = "ACe99d5799034744861dac49ceab073157";
-    private final static String Auth_Token = "c53d73bc80c50bdf63487139d07e84cf";
+    private final static String Auth_Token = "4f412e444015a9c17c328161f1c00e50";
     private final static String FROM = "+19362462444";
 
     public TwilioUtil(){

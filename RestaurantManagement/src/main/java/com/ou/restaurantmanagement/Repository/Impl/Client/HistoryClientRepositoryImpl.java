@@ -3,7 +3,7 @@ package com.ou.restaurantmanagement.Repository.Impl.Client;
 import com.ou.restaurantmanagement.DTO.Response.HistoryResponse;
 import com.ou.restaurantmanagement.DTO.Response.HistoryStaffResponse;
 import com.ou.restaurantmanagement.Repository.Client.HistoryClientRepository;
-import com.ou.restaurantmanagement.Repository.Client.OrderClientRepository;
+import com.ou.restaurantmanagement.Repository.Client.PaymentClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -18,7 +18,7 @@ public class HistoryClientRepositoryImpl implements HistoryClientRepository {
     private EntityManager _em;
 
     @Autowired
-    private OrderClientRepository _orderRepository;
+    private PaymentClientRepository _orderRepository;
 
     @Override
     public List<HistoryResponse> getListOrder(int user_id) {
