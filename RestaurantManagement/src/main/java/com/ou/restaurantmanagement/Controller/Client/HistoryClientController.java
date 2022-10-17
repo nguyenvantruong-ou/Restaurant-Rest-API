@@ -27,10 +27,4 @@ public class HistoryClientController {
         return _historyService.getListOrderByStaff(phoneNumber);
     }
 
-    @PostMapping("/staff-confirm-user-payment")
-    @PreAuthorize("hasAnyAuthority('STAFF')")
-    @CrossOrigin
-    public IBaseResponse confirmPayment(@RequestBody BillRequestDTO input){
-        return _historyService.confirmPayment(input);
-    }
 }

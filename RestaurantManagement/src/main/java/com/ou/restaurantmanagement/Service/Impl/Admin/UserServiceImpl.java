@@ -12,6 +12,7 @@ import com.ou.restaurantmanagement.Repository.Impl.Admin.UserRepositoryImpl;
 import com.ou.restaurantmanagement.Service.Admin.UserService;
 import com.ou.restaurantmanagement.Utils.CloudinaryUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -23,6 +24,10 @@ import java.util.Optional;
 public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository _userRepository;
+
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Override
     public IBaseResponse getUser(IBaseRequest input) {
@@ -77,7 +82,8 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public IBaseResponse updateUserName(UserRequestDTO user) {
+    public IBaseResponse updateUserName(IBaseRequest input) {
+        UserRequestDTO user = (UserRequestDTO) input;
         if (!_userRepository.isIdCart(user.getUserIdCard(), user.getId()))
             return new Common(Code.INVALID, null, "Số CMND đã tồn tại!");
         else if(!_userRepository.isUsername(user.getUserUsename(), user.getId()))
@@ -90,6 +96,7 @@ public class UserServiceImpl implements UserService {
                             return new Common(Code.INVALID, null, "Lưu ảnh không thành công!");
                         user.setUserImage(link);
                     }
+                    user.setUserPassword(passwordEncoder.encode(user.getUserPassword()));
                     if (_userRepository.updateUser(user))
                         return new Common(Code.OK, null,"Đã sửa thành công" );
                     else

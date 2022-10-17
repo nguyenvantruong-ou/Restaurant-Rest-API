@@ -11,7 +11,6 @@ public class OrderRequestDTO implements IBaseRequest {
     private String ord_booking_lesson;
     private int user_id;
     private int lob_id;
-    private boolean ord_is_payment;
     private List<OrderServiceRequestDTO> listService;
     private List<OrderMenuRequestDTO> listMenu;
 
@@ -45,14 +44,6 @@ public class OrderRequestDTO implements IBaseRequest {
 
     public void setLob_id(int lob_id) {
         this.lob_id = lob_id;
-    }
-
-    public boolean isOrd_is_payment() {
-        return ord_is_payment;
-    }
-
-    public void setOrd_is_payment(boolean ord_is_payment) {
-        this.ord_is_payment = ord_is_payment;
     }
 
     public List<OrderServiceRequestDTO> getListService() {

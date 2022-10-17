@@ -76,6 +76,6 @@ public class UserClientController {
     @PostMapping("/logout")
     @CrossOrigin
     public IBaseResponse logout(){
-        return new Common(Code.OK, null, "okk");
+       return _userService.logout();
     }
 }

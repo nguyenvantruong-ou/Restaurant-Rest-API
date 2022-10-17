@@ -50,15 +50,5 @@ public class HistoryClientServiceImpl implements HistoryClientService {
         }
     }
 
-    @Override
-    public IBaseResponse confirmPayment(IBaseRequest input) {
-        try{
-            if(_orderRepository.addBill(input))
-                return new Common(Code.OK, null, "Xác nhận thanh toán thành công!");
-            return new Common(Code.INVALID_REQUEST, null, "Vui lòng kiểm tra lại!");
-        } catch (Exception e){
-            System.err.println("ERROR in confirmPayment(): " + e);
-            return new Common(Code.INVALID, null, "Vui lòng kiểm tra lại!");
-        }
-    }
+
 }

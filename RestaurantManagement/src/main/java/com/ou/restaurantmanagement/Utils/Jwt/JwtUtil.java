@@ -13,7 +13,7 @@ import java.util.Date;
 @Component
 public class JwtUtil {
     private static final Logger logger = LoggerFactory.getLogger(JwtUtil.class);
-    private String jwtSecret = "secretKeyBytenguyenvantruongquangnamdananasjhfjhgfjheghiwmqreffdsgsfgfghhghjfhjgjdgsfgsdftgdfsgdfggfggg";
+    private static String jwtSecret = "secretKeyBytenguyenvantruongquangnamdananasjhfjhgfjheghiwmqreffdsgsfgfghhghjfhjgjdgsfgsdftgdfsgdfggfggg";
     private int jwtExpiration = 60 * 24 * 24 * 1000;
     public String createToken(Authentication authentication){
         UserPrinciple userPrinciple = (UserPrinciple) authentication.getPrincipal();
@@ -46,5 +46,9 @@ public class JwtUtil {
     public String getUserNameFromToken(String token){
         String userName = Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody().getSubject();
         return userName;
+    }
+
+    public void setSecret(String secret){
+        this.jwtSecret = secret;
     }
 }

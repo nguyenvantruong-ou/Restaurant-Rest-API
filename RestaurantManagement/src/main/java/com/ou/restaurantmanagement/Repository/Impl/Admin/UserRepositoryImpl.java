@@ -99,7 +99,9 @@ public class UserRepositoryImpl implements UserRepository {
     public String checkRole(int role) {
         if(role == 1)
             return Role.ADMIN;
-        return Role.USER;
+        if(role == 2)
+            return Role.USER;
+        return Role.STAFF;
     }
 
     @Override
