@@ -12,6 +12,7 @@ import com.ou.restaurantmanagement.Service.Client.UserClientService;
 import com.ou.restaurantmanagement.Utils.Jwt.JwtUtil;
 import com.ou.restaurantmanagement.Utils.Jwt.UserPrinciple.UserPrinciple;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -74,6 +75,7 @@ public class UserClientController {
     }
 
     @PostMapping("/logout")
+    @PreAuthorize("hasAnyAuthority('USER', 'STAFF', 'ADMIN')")
     @CrossOrigin
     public IBaseResponse logout(){
        return _userService.logout();

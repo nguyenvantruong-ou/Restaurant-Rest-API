@@ -45,8 +45,9 @@ public class PaymentClientServiceImpl implements PaymentClientService {
     public IBaseResponse confirmPayment(IBaseRequest input) {
         try{
             if(_paymentRepository.addBill(input)) {
-                sendTwilioSMS();
-                return new Common(Code.OK, null, "Xác nhận thanh toán thành công!");
+//                Tạm đóng gửi SMS
+//                sendTwilioSMS();
+                return new Common(Code.OK, null, "Xác nhận thanh toán thành công");
             }
             return new Common(Code.INVALID_REQUEST, null, "Vui lòng kiểm tra lại!");
         } catch (Exception e){
@@ -58,7 +59,8 @@ public class PaymentClientServiceImpl implements PaymentClientService {
     @Override
     public IBaseResponse paymentSuccess() {
         try {
-            sendTwilioSMS();
+//            Tạm đóng gửi SMS
+//            sendTwilioSMS();
             return new Common(Code.OK, null, "Đã gửi SMS thành công");
         }catch (Exception e){
             System.err.println("ERROR in SMS: " + e);
