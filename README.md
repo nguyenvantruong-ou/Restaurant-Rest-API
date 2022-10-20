@@ -13,6 +13,7 @@ Hệ thống quản lý nhà hàng cung cấp một số chức năng chính nh�
     + Chỉnh sửa thông tin cá nhân
     + Xem danh sách các sảnh tiệc của nhà hàng.
     + Xem chi tiết một sảnh tiệc (hình ảnh, mô tả, giá…)
+    + Đánh giá, bình luận sảnh
     + Xem danh sách các dịch vụ mà nhà hàng cung cấp.
     + Xem danh sách các thực đơn có sẵn và chi tiết các món ăn.
     + Đặt tiệc.
