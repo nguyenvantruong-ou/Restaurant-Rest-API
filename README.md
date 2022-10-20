@@ -9,7 +9,8 @@ Hệ thống quản lý nhà hàng cung cấp một số chức năng chính nh�
     + Thống kê mật độ đặt tiệc.
     + Xem thông tin các hoá đơn.
 * Trang thông tin cho khách hàng sử dụng gồm các chức năng:
-    + Đăng kí tài khoản, đăng nhập, xác thực tài khoản, đăng xuất
+    + Đăng ký tài khoản, đăng nhập, xác thực tài khoản, đăng xuất
+    + Chỉnh sửa thông tin cá nhân
     + Xem danh sách các sảnh tiệc của nhà hàng.
     + Xem chi tiết một sảnh tiệc (hình ảnh, mô tả, giá…)
     + Xem danh sách các dịch vụ mà nhà hàng cung cấp.
@@ -21,3 +22,4 @@ Hệ thống quản lý nhà hàng cung cấp một số chức năng chính nh�
     + Xem danh sách các đơn đặt tiệc
     + Xác nhận khi khách hàng đã thanh toán bằng tiền mặt
     + Tra cứu số điện thoại khách hàng
+    + Chỉnh sửa thông tin cá nhân
