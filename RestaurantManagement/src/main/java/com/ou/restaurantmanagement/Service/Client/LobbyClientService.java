@@ -5,4 +5,5 @@ import com.ou.restaurantmanagement.DTO.Response.IBaseResponse;
 
 public interface LobbyClientService {
     IBaseResponse getListLobby(IBaseRequest input);
+    IBaseResponse getLobbyByID(int lob_id);
 }
