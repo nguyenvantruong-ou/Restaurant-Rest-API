@@ -2,8 +2,10 @@ package com.ou.restaurantmanagement.Repository.Impl.Client;
 
 import com.ou.restaurantmanagement.DTO.Request.IBaseRequest;
 import com.ou.restaurantmanagement.DTO.Request.LobbyRequestDTO;
+import com.ou.restaurantmanagement.DTO.Response.LobbyDetailsResponse;
 import com.ou.restaurantmanagement.DTO.Response.LobbyResponse;
 import com.ou.restaurantmanagement.Pojos.Lobby;
+import com.ou.restaurantmanagement.Pojos.LobbyImage;
 import com.ou.restaurantmanagement.Repository.Client.LobbyClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -41,12 +43,35 @@ public class LobbyClientRepositoryImpl implements LobbyClientRepository {
         return rep;
 
     }
+
     private int maxPage(int size, int sizePage){
         int max = size/sizePage;
         int d = size%sizePage;
         if (d > 0)
             max ++;
         return max;
+    }
+
+    @Override
+    public LobbyDetailsResponse getLobbyByID(int lob_id) {
+        LobbyDetailsResponse result = new LobbyDetailsResponse();
+        Lobby lobby = _em.createQuery("SELECT l FROM Lobby l WHERE l.id = :id", Lobby.class)
+                .setParameter("id", lob_id)
+                .getSingleResult();
+        List<String> listImage = _em.createQuery("SELECT i.image FROM LobbyImage i " +
+                "WHERE i.lob.id = :id", String.class)
+                .setParameter("id", lob_id)
+                .getResultList();
+
+        result.setId(lobby.getId());
+        result.setLobName(lobby.getLobName());
+        result.setLobAddress(lobby.getLobAddress());
+        result.setLobPrice(lobby.getLobPrice());
+        result.setLobTotalTable(lobby.getLobTotalTable());
+        result.setLobImage(lobby.getLobImage());
+        result.setLobDescription(lobby.getLobDescription());
+        result.setListImage(listImage);
+        return result;
     }
 
 }

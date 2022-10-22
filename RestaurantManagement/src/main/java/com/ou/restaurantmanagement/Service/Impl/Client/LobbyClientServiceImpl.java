@@ -30,4 +30,18 @@ public class LobbyClientServiceImpl implements LobbyClientService {
             return new Common(Code.NOT_FOUND, null, "Vui lòng kiểm tra lại!");
         }
     }
+
+    @Override
+    public IBaseResponse getLobbyByID(int lob_id) {
+        try {
+            if (lob_id > 0)
+                return new Common(Code.OK, _lobbyRepository.getLobbyByID(lob_id),
+                    "Lấy thông tin thành công");
+            return new Common(Code.INVALID_REQUEST, null,
+                    "Kiểm tra lại dữ liệu truyền vào!");
+        } catch (Exception e){
+            System.err.println("ERROR in getLobbyByID: " + e);
+            return new Common(Code.NOT_FOUND, null, "Vui lòng kiểm tra lại!");
+        }
+    }
 }

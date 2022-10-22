@@ -24,4 +24,10 @@ public class LobbyClientController {
 
         return _lobbyService.getListLobby(req);
     }
+
+    @GetMapping("/get-lobby-by-id")
+    @CrossOrigin
+    public IBaseResponse getLobbyByID(@RequestParam("id") int lob_id){
+        return _lobbyService.getLobbyByID(lob_id);
+    }
 }
