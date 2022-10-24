@@ -1,0 +1,75 @@
+div.content {
+  margin-left: 320px;
+  margin-right: 20px;
+}
+
+div.dashboard-img {
+  /* The image used */
+  background-image: url('https://res.cloudinary.com/dqifjhxxg/image/upload/v1660182443/website-admin-administrator-campaign-web-website-template-page-landing-home-homepage-with-isometric-flat-style-design_82472-353_ujavx2.jpg');
+
+  /* Full height */
+  height: 720px;
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+h1.title {
+  margin-top: 20px;
+  text-align: center;
+  color: darkcyan;
+  text-transform: uppercase;
+}
+
+.center {
+  text-align: center;
+}
+
+table {
+  text-align: justify;
+  border: 1px solid #02b4b4;
+}
+
+table thead {
+  background-color: #02b4b4;
+}
+
+.border-radius {
+  border-radius: 50%;
+}
+
+table tr {
+  vertical-align: middle;
+}
+
+/*stats css */
+.box-stats {
+  display: flex;
+  height: 100vh;
+}
+.box-stats .chart {
+  width: 80%;
+  height: 70vh;
+}
+
+.box-stats .table-info {
+  width: 30%;
+  overflow: scroll;
+  height: 75vh;
+}
+
+table thead {
+  position: sticky;
+  top: -2px;
+  z-index: 1;
+}
+
+.box-stats-date {
+  margin: 20px;
+  margin-left: 25%;
+}
+
+.box-stats-date label {
+  margin: 0 10px;
+}

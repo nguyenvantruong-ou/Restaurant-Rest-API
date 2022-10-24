@@ -1,0 +1,100 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Roboto';
+}
+
+/* Scrollbar CSS */
+html *::-webkit-scrollbar {
+  border-radius: 0;
+  width: 7px;
+}
+
+html *::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+html *::-webkit-scrollbar-track {
+  border-radius: 0;
+  background-color: rgba(0, 0, 0, 0);
+}
+
+hr {
+  border-width: 5px;
+  color: #b44e04;
+  margin-bottom: 30px;
+}
+
+textarea {
+  resize: none;
+}
+
+.hr30 {
+  width: 30%;
+}
+
+img {
+  object-fit: cover;
+}
+
+div.title-price {
+  text-align: center;
+  color: #c47135;
+  font-size: 30px;
+  font-style: italic;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+table.price-detail {
+  border: 1px solid #333;
+  height: 290px;
+  width: 620px;
+  margin-left: 20px;
+}
+
+table.price-detail tr td,
+table.price-detail tr th {
+  text-align: center;
+  border: 3px solid #333;
+}
+
+table.price-detail tr th {
+  color: darkcyan;
+  text-transform: uppercase;
+}
+
+/* css contact */
+p.contact {
+  color: #555;
+  text-align: justify;
+}
+
+div.contact {
+  margin-bottom: 20px;
+}
+
+div.contact h4 {
+  color: #790000;
+}
+
+div.contact div {
+  color: #616161;
+}
+
+/* border page css */
+div.border {
+  margin: 100px 10px;
+  border: 10px rgb(199, 91, 3) solid !important;
+  background-color: rgba(0, 0, 0, 0.02);
+}
+
+/* booking table */
+table.booking {
+  border: 1px solid rgb(9, 119, 104);
+  height: 200px;
+  width: 400px;
+  text-align: center;
+}

@@ -1,0 +1,47 @@
+.title {
+  font-size: 32px;
+  text-align: center;
+  margin-top: 20px;
+  color: #0b5f5f;
+  text-transform: uppercase;
+}
+
+.box-feedback {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+  align-items: center;
+}
+
+.box-feedback .box-left {
+  width: 320px;
+  height: 80vh;
+  background-color: #0b5f5f;
+  border: 1px solid #333;
+  overflow: scroll;
+}
+
+.box-feedback .box-right {
+  background-color: white;
+  border: 1px solid #333;
+  width: 600px;
+  height: 80vh;
+}
+
+.user-chat {
+  padding: 5px;
+  background-color: aliceblue;
+  border: 1px solid #333;
+}
+
+.user-chat img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-right: 20px;
+}
+
+.user-chat:hover {
+  opacity: 0.8;
+  cursor: pointer;
+}
