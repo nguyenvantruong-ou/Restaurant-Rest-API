@@ -23,6 +23,7 @@ public class LobbyRequestDTO implements IBaseRequest{
     private BigDecimal lobPrice;
 
     private Integer lobTotalTable;
+    private boolean lobIsActive;
 
     private MultipartFile lobImage;
     private String key_Image;
@@ -132,5 +133,13 @@ public class LobbyRequestDTO implements IBaseRequest{
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public boolean isLobIsActive() {
+        return lobIsActive;
+    }
+
+    public void setLobIsActive(boolean lobIsActive) {
+        this.lobIsActive = lobIsActive;
     }
 }

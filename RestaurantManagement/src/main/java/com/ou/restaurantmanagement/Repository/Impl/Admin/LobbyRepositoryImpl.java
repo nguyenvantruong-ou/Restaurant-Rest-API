@@ -108,6 +108,7 @@ public class LobbyRepositoryImpl implements LobbyRepository {
             lobby.setLobPrice(req.getLobPrice());
             lobby.setLobTotalTable(req.getLobTotalTable());
             lobby.setLobDescription(req.getLobDescription());
+            lobby.setLobIsActive(req.isLobIsActive());
             _em.merge(lobby);
             return true;
         }

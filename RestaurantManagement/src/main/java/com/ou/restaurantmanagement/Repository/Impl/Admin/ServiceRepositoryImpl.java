@@ -64,6 +64,8 @@ public class ServiceRepositoryImpl implements com.ou.restaurantmanagement.Reposi
             s.setSerName(req.getSerName());
             s.setSerPrice(req.getSerPrice());
             s.setSerDescription(req.getSerDescription());
+            if (req.getSerIsActive() != null)
+                s.setSerIsActive(req.getSerIsActive());
             if(req.getSerImage() != null)
                 s.setSerImage(req.getSerImage());
             _em.merge(s);
