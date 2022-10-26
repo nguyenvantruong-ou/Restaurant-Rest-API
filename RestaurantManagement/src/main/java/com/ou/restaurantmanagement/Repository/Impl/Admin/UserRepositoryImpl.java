@@ -117,6 +117,8 @@ public class UserRepositoryImpl implements UserRepository {
             u.setUserDateOfBirth(u.getUserDateOfBirth());
             u.setUserUsename(user.getUserUsename());
             u.setUserPassword(user.getUserPassword());
+            if (user.getUserIsActive() != null)
+                u.setUserIsActive(user.getUserIsActive());
             u.setUserEmail(user.getUserEmail());
             u.setUserAddress(user.getUserAddress());
             u.setUserRole(checkRole(user.getUserRole()));
