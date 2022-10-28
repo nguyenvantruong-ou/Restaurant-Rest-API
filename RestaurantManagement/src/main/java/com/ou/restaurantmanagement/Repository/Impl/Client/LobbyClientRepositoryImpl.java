@@ -2,6 +2,7 @@ package com.ou.restaurantmanagement.Repository.Impl.Client;
 
 import com.ou.restaurantmanagement.DTO.Request.IBaseRequest;
 import com.ou.restaurantmanagement.DTO.Request.LobbyRequestDTO;
+import com.ou.restaurantmanagement.DTO.Response.LobbyComboboxResponse;
 import com.ou.restaurantmanagement.DTO.Response.LobbyDetailsResponse;
 import com.ou.restaurantmanagement.DTO.Response.LobbyResponse;
 import com.ou.restaurantmanagement.Pojos.Lobby;
@@ -12,6 +13,8 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -72,6 +75,24 @@ public class LobbyClientRepositoryImpl implements LobbyClientRepository {
         result.setLobDescription(lobby.getLobDescription());
         result.setListImage(listImage);
         return result;
+    }
+
+    @Override
+    public List<LobbyComboboxResponse> getLobbyCombobox() {
+        List<LobbyComboboxResponse> results = new ArrayList<>();
+        List<Object[]> listLobby = _em.createQuery("SELECT l.id, l.lobName, l.lobImage, l.lobPrice " +
+                        "FROM Lobby l WHERE l.lobIsActive = true", Object[].class)
+                .getResultList();
+        listLobby.forEach(s->{
+            LobbyComboboxResponse r = new LobbyComboboxResponse();
+            r.setLobId((int) s[0]);
+            r.setLobName((String) s[1]);
+            r.setLobImage((String) s[2]);
+            r.setLobPrice((BigDecimal) s[3]);
+
+            results.add(r);
+        });
+        return results;
     }
 
 }
