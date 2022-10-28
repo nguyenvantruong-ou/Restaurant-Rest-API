@@ -44,4 +44,15 @@ public class LobbyClientServiceImpl implements LobbyClientService {
             return new Common(Code.NOT_FOUND, null, "Vui lòng kiểm tra lại!");
         }
     }
+
+    @Override
+    public IBaseResponse getLobbyCombobox() {
+        try{
+            return new Common(Code.OK, _lobbyRepository.getLobbyCombobox(),
+                    "Lấy danh sách thành công");
+        } catch (Exception e ){
+            System.err.println("ERROR in getLobbyCombobox(): " + e);
+            return new Common(Code.NOT_FOUND, null, "vui lòng kiểm tra lại!");
+        }
+    }
 }

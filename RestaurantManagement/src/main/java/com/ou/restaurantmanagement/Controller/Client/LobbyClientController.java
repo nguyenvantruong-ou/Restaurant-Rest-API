@@ -30,4 +30,10 @@ public class LobbyClientController {
     public IBaseResponse getLobbyByID(@RequestParam("id") int lob_id){
         return _lobbyService.getLobbyByID(lob_id);
     }
+
+    @GetMapping("/get-list-lobby-combobox")
+    @CrossOrigin
+    public IBaseResponse getLobbyCombobox(){
+        return _lobbyService.getLobbyCombobox();
+    }
 }
