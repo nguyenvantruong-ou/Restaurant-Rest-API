@@ -10,9 +10,7 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Repository
 @Transactional
@@ -29,11 +27,9 @@ public class FeedbackRepositoryImpl implements FeedbackRepository {
 
     @Override
     public List<FeedbackGeneral> getListFeedback() {
-        String a = getLastFeedback(3);
-        List<Object[]> r = _em.createQuery("SELECT f.user.userUsername, f.user.userLastName, f.user.userFirstName," +
+        List<Object[]> r = _em.createQuery("SELECT distinct f.user.userUsername, f.user.userLastName, f.user.userFirstName," +
                         "f.user.id, f.user.userImage FROM Feedback f " +
-                        "GROUP BY f.user.userUsername, f.user.userLastName, f.user.userFirstName," +
-                        "f.user.id, f.feedContent", Object[].class)
+                        " ORDER BY f.id DESC", Object[].class)
                 .getResultList();
         List<FeedbackGeneral> results= new ArrayList<>();
         r.forEach(s->{
