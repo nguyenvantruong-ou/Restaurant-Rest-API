@@ -11,8 +11,9 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 import axios from 'axios';
+import { toast } from 'react-toastify';
+import { Paper } from '@mui/material';
 
 function Copyright(props) {
   return (
@@ -29,11 +30,10 @@ function Copyright(props) {
   );
 }
 
-const theme = createTheme();
-
 export default function Login() {
   const nav = useNavigate();
-  document.title = 'Đăng nhập';
+  localStorage.clear();
+  document.title = 'Đăng nhập quản trị viên';
   document.querySelector("link[rel*='icon']").href =
     'https://res.cloudinary.com/dqifjhxxg/image/upload/v1663947929/restaurant%20management/1791961_tlcqcp.png';
   const handleSubmit = (event) => {
@@ -41,7 +41,7 @@ export default function Login() {
 
     const info = new FormData(event.currentTarget);
     let data = JSON.stringify({
-      username: info.get('email'),
+      username: info.get('username'),
       password: info.get('password'),
     });
 
@@ -61,31 +61,45 @@ export default function Login() {
         localStorage.setItem('userID', res.data.userID);
         localStorage.setItem('username', res.data.username);
         localStorage.setItem('role', res.data.roles);
-        if (res.code === 200) nav('/admin');
+        if (res.code === 200) {
+          toast.success('đăng nhập thành công');
+          document.title = 'Quản trị hệ thống';
+          document.querySelector("link[rel*='icon']").href =
+            'https://res.cloudinary.com/dqifjhxxg/image/upload/v1651647841/q4lhebqkmpf4qj7rzhuo.png';
+          nav('/admin');
+        }
       })
       .catch(function (error) {
-        alert('Thất bại');
-        console.log(error);
+        toast.error('đăng nhập thất bại');
       });
   };
 
   return (
-    <ThemeProvider theme={theme}>
+    <div
+      className="bg-login"
+      style={{
+        height: '100vh',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundImage: 'linear-gradient(to bottom right, #0b5f5f, #000000)',
+      }}
+    >
       <Container component="main" maxWidth="xs">
-        <CssBaseline />
-        <Box
+        <Paper
           sx={{
-            marginTop: 8,
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
+            padding: '30px',
           }}
+          elevation={10}
         >
           <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Đăng nhập người dùng
+            Đăng nhập quản trị viên
           </Typography>
           <Box
             component="form"
@@ -97,10 +111,10 @@ export default function Login() {
               margin="normal"
               required
               fullWidth
-              id="email"
-              label="Địa chỉ Email"
-              name="email"
-              autoComplete="email"
+              id="username"
+              label="Tên đăng nhập"
+              name="username"
+              autoComplete="username"
               autoFocus
             />
             <TextField
@@ -125,22 +139,10 @@ export default function Login() {
             >
               Đăng nhập
             </Button>
-            <Grid container>
-              <Grid item xs>
-                <Link to={'/auth/register'} variant="body2">
-                  Quên mật khẩu?
-                </Link>
-              </Grid>
-              <Grid item>
-                <Link to={'/auth/register'} variant="body2">
-                  {'Chưa có tài khoản? Đăng kí'}
-                </Link>
-              </Grid>
-            </Grid>
-          </Box>
-        </Box>
-        <Copyright sx={{ mt: 8, mb: 4 }} />
+          </Box>{' '}
+          <Copyright sx={{ mt: 8, mb: 4 }} />
+        </Paper>
       </Container>
-    </ThemeProvider>
+    </div>
   );
 }

@@ -25,12 +25,12 @@ const Header = () => {
         <Navbar.Brand as={Link} to="/">
           <img
             alt=""
-            src="https://res.cloudinary.com/dqifjhxxg/image/upload/v1650674202/restaurant%20management/toast_d2vk24.png"
+            src="https://res.cloudinary.com/dqifjhxxg/image/upload/v1667017299/restaurant%20management/cheers_updtj6.png"
             width="30"
             height="30"
             className="d-inline-block align-top"
           />{' '}
-          Thành Văn
+          <b style={{ color: '#dd9933' }}>Thành Văn</b>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
@@ -72,7 +72,7 @@ const Header = () => {
                 ''
               )}
               <Nav.Link style={{ color: '#d3ac2b' }}>
-                {localStorage.getItem('username')}
+                <i>{localStorage.getItem('username')}</i>
               </Nav.Link>
               <Nav.Link onClick={logoutClick}>Đăng xuất</Nav.Link>
             </Nav>

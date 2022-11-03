@@ -1,16 +1,18 @@
+import { Visibility } from '@mui/icons-material';
 import React from 'react';
-import { Table } from 'react-bootstrap';
+import { Button, Table } from 'react-bootstrap';
 import FormatPrice from '../../FormatPrice';
 
 const TableBill = (props) => {
   return (
-    <Table striped hover>
+    <Table striped hover style={{ margin: '10px 0' }}>
       <thead>
         <tr>
           <th>Mã</th>
           <th className="center">Ngày thanh toán</th>
           <th className="center">Khách hàng</th>
           <th className="center">Tổng tiền</th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
@@ -23,6 +25,11 @@ const TableBill = (props) => {
               <i>
                 <FormatPrice price={bill.totalMoney} /> VND
               </i>
+            </td>
+            <td width={'12%'}>
+              <Button variant="outline-info">
+                <Visibility /> chi tiết
+              </Button>
             </td>
           </tr>
         ))}

@@ -5,22 +5,6 @@
   font-family: 'Roboto';
 }
 
-/* Scrollbar CSS */
-html *::-webkit-scrollbar {
-  border-radius: 0;
-  width: 7px;
-}
-
-html *::-webkit-scrollbar-thumb {
-  border-radius: 4px;
-  background-color: rgba(0, 0, 0, 0.1);
-}
-
-html *::-webkit-scrollbar-track {
-  border-radius: 0;
-  background-color: rgba(0, 0, 0, 0);
-}
-
 hr {
   border-width: 5px;
   color: #b44e04;
@@ -51,7 +35,7 @@ div.title-price {
 table.price-detail {
   border: 1px solid #333;
   height: 290px;
-  width: 620px;
+  width: 100%;
   margin-left: 20px;
 }
 
@@ -97,4 +81,30 @@ table.booking {
   height: 200px;
   width: 400px;
   text-align: center;
+}
+
+.banner {
+  width: 100%;
+  height: 300px;
+  overflow: hidden;
+}
+
+img.zoom-in-out {
+  animation: zoominoutsinglefeatured 25s infinite ease-in-out;
+}
+
+@keyframes zoominoutsinglefeatured {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.5);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.btn-detail:hover .link {
+  color: #fff;
 }

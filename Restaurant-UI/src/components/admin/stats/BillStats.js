@@ -2,20 +2,30 @@ import React, { useEffect, useState } from 'react';
 import Title from '../Title';
 import TableStats from './TableStats';
 import StatsChart from './StatsChart';
-import { Button, Grid } from '@mui/material';
+import { Grid } from '@mui/material';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import Error403 from '../../ErrorPages/Error403';
+import { Button } from 'react-bootstrap';
+import LineChart2 from './LineChart';
 
 const BillMonthStats = () => {
   const role = localStorage.getItem('role');
   const [fromDate, setFromDate] = useState('2020-01-01');
   const [toDate, setToDate] = useState('2022-10-24');
+  const [data, setData] = useState([]);
+
   const btnStatsClick = () => {
-    setFromDate(document.getElementById('from-date').value);
-    setToDate(document.getElementById('to-date').value);
+    const fromDate = document.getElementById('from-date').value;
+    const toDate = document.getElementById('to-date').value;
+    if (fromDate > toDate) {
+      toast.error('khoảng thời gian sai');
+    } else {
+      setFromDate(fromDate);
+      setToDate(toDate);
+    }
   };
-  let [data, setData] = useState([]);
+
   useEffect(() => {
     let config = {
       method: 'get',
@@ -29,7 +39,14 @@ const BillMonthStats = () => {
       .then(function (response) {
         const res = response.data;
         setData(res.data);
-        toast.info(response.data.message, {
+        // for (let y = fromYear; y <= toYear; y += 1) {
+        //   let newArr = res.data.map((item) => {
+        //     // console.log(item.year === y);
+        //     if (item.year === y) return item;
+        //   });
+        //   console.log(newArr);
+        // }
+        toast.success(response.data.message, {
           position: toast.POSITION.TOP_RIGHT,
         });
       })
@@ -59,37 +76,46 @@ const BillMonthStats = () => {
             defaultValue="2022-10-24"
           />
           <Button
-            variant="contained"
-            sx={{ marginLeft: 2, height: 30, marginTop: 0 }}
+            style={{ marginLeft: '10px' }}
+            variant="outline-success"
             onClick={btnStatsClick}
           >
             Thống kê
           </Button>
           <Grid container></Grid>
         </div>
-        <div className="box-stats">
-          <div className="chart">
-            <StatsChart
-              data={data}
-              title="Thống kê doanh thu"
-              typeStats="total"
-            />
+        {data !== null ? (
+          <div className="box-stats">
+            <div className="chart">
+              <StatsChart
+                data={data}
+                title="Thống kê doanh thu"
+                typeStats="total"
+              />
+              <LineChart2
+                data={data}
+                title="Thống kê doanh thu"
+                typeStats="total"
+              />
+            </div>
+            <div className="table-info">
+              <TableStats
+                data={data}
+                title="Tổng tiền"
+                typeStats="total"
+                unit="VND"
+              />
+            </div>
           </div>
-          <div className="table-info">
-            <TableStats
-              data={data}
-              title="Tổng tiền"
-              typeStats="total"
-              unit="VND"
-            />
-          </div>
-        </div>
+        ) : (
+          ''
+        )}
       </>
     );
   } else {
     return (
       <>
-        <Error403 />
+        <Error403 links={'/admin/login'} />
       </>
     );
   }

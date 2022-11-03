@@ -6,8 +6,9 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Unstable_Grid2';
 import { Link } from 'react-router-dom';
-import { Button, CardActionArea, CardActions } from '@mui/material';
+import { CardActionArea, CardActions } from '@mui/material';
 import axios from 'axios';
+import { Button } from 'react-bootstrap';
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -69,8 +70,14 @@ const LobbyList = () => {
                   </Typography>
                 </CardContent>
                 <CardActions>
-                  <Button size="small" color="primary">
-                    <Link to={`details/${lobby.id}`}>Xem chi tiết</Link>
+                  <Button className="btn-detail" variant="outline-primary">
+                    <Link
+                      className="link"
+                      style={{ textDecoration: 'none' }}
+                      to={`details/${lobby.id}`}
+                    >
+                      Xem chi tiết
+                    </Link>
                   </Button>
                 </CardActions>
               </Item>
@@ -89,8 +96,14 @@ const LobbyList = () => {
                   </Typography>
                 </CardContent>
                 <CardActions>
-                  <Button size="small" color="primary">
-                    <Link to={`details/${lobby.id}`}>Xem chi tiết</Link>
+                  <Button className="btn-detail" variant="outline-primary">
+                    <Link
+                      className="link"
+                      style={{ textDecoration: 'none', visited: '#fff' }}
+                      to={`details/${lobby.id}`}
+                    >
+                      Xem chi tiết
+                    </Link>
                   </Button>
                 </CardActions>
               </Item>

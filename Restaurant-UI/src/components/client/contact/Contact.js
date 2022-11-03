@@ -19,7 +19,6 @@ const Contact = () => {
     let feedbackContent = document.getElementById('feedback-content');
     let role = localStorage.getItem('role');
     let config;
-    console.log(feedbackContent);
     if (role !== 'USER') {
       toast.error('vui lòng đăng nhập với tài khoản role USER', {
         position: toast.POSITION.TOP_RIGHT,
@@ -40,10 +39,10 @@ const Contact = () => {
         axios(config)
           .then(function (response) {
             feedbackContent.value = null;
-            alert(response.data.message);
+            toast.success(response.data.message);
           })
           .catch(function (error) {
-            alert(error);
+            toast.error(error.message);
           });
       } else {
         toast.error('vui lòng nhập nội dung', {
@@ -184,10 +183,10 @@ const Contact = () => {
             <iframe
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3918.9251197291956!2d106.67491891463938!3d10.817042392293937!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x317528e1f241211f%3A0xc9ef195798144b1f!2zVHLGsOG7nW5nIMSQ4bqhaSBo4buNYyBN4bufIFRQLkhDTSAtIEPGoSBz4bufIDM!5e0!3m2!1svi!2s!4v1663859918389!5m2!1svi!2s"
               style={{ width: 650, height: 400, border: 0 }}
-              allowfullscreen=""
+              allowFullScreen=""
               loading="lazy"
               title="map"
-              referrerpolicy="no-referrer-when-downgrade"
+              referrerPolicy="no-referrer-when-downgrade"
             ></iframe>
           </Grid>
           <Grid item xs={5}>

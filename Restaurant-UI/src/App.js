@@ -29,6 +29,11 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import HistoryOrder from './components/client/history-order/HistoryOrder';
 import ListBooking from './components/client/history-order/ListBooking';
+import moment from 'moment';
+import 'moment/locale/vi';
+import AdminLogin2 from './components/admin/user-management/Adminlogin2';
+
+moment().local('vi');
 
 const App = () => {
   return (
@@ -48,6 +53,8 @@ const App = () => {
         </Route>
         <Route path="/admin" element={<AdminLayout />}>
           <Route path="login" element={<AdminLogin />} />
+          <Route path="login2" element={<AdminLogin2 />} />
+          <Route path="dashboard" element={<Dashboard />} />
           <Route path="" element={<Dashboard />} />
           <Route path="lobby-management" element={<LobbyManagement />} />
           <Route path="service-management" element={<ServiceManagement />} />
@@ -64,7 +71,7 @@ const App = () => {
         <Route path="*" element={<PageNotFound />} />
       </Routes>
       <ScrollToTopButton />
-      <ToastContainer />
+      <ToastContainer autoClose={2000} />
     </div>
   );
 };

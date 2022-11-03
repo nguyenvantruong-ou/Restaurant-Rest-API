@@ -2,18 +2,24 @@ import React, { useEffect, useState } from 'react';
 import Title from '../Title';
 import TableStats from './TableStats';
 import StatsChart from './StatsChart';
-import { Button } from '@mui/material';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import Error403 from '../../ErrorPages/Error403';
+import { Button, Form } from 'react-bootstrap';
 
 const OrderMonthStats = () => {
   const role = localStorage.getItem('role');
   const [fromDate, setFromDate] = useState('2020-01-01');
   const [toDate, setToDate] = useState('2022-10-24');
   const btnStatsClick = () => {
-    setFromDate(document.getElementById('from-date').value);
-    setToDate(document.getElementById('to-date').value);
+    const fromDate = document.getElementById('from-date').value;
+    const toDate = document.getElementById('to-date').value;
+    if (fromDate > toDate) {
+      toast.error('khoảng thời gian sai');
+    } else {
+      setFromDate(fromDate);
+      setToDate(toDate);
+    }
   };
   let [data, setData] = useState([]);
   useEffect(() => {
@@ -29,7 +35,7 @@ const OrderMonthStats = () => {
       .then(function (response) {
         const res = response.data;
         setData(res.data);
-        toast.info(response.data.message, {
+        toast.success(response.data.message, {
           position: toast.POSITION.TOP_RIGHT,
         });
       })
@@ -59,36 +65,43 @@ const OrderMonthStats = () => {
             defaultValue="2022-10-24"
           />
           <Button
-            variant="contained"
-            sx={{ marginLeft: 2, height: 30, marginTop: 0 }}
+            style={{ marginLeft: '10px' }}
+            variant="outline-success"
             onClick={btnStatsClick}
           >
             Thống kê
           </Button>
         </div>
-        <div className="box-stats">
-          <div className="chart">
-            <StatsChart
-              data={data}
-              title="Thống kê doanh thu"
-              typeStats="amountOrder"
-            />
-          </div>
-          <div className="table-info">
-            <TableStats
-              data={data}
-              title="Tổng tiệc"
-              typeStats="amountOrder"
-              unit="(tiệc)"
-            />
-          </div>
-        </div>
+        {data !== null ? (
+          <>
+            {' '}
+            <div className="box-stats">
+              <div className="chart">
+                <StatsChart
+                  data={data}
+                  title="Thống kê mật độ"
+                  typeStats="amountOrder"
+                />
+              </div>
+              <div className="table-info">
+                <TableStats
+                  data={data}
+                  title="Tổng tiệc"
+                  typeStats="amountOrder"
+                  unit="(tiệc)"
+                />
+              </div>
+            </div>
+          </>
+        ) : (
+          ''
+        )}
       </>
     );
   } else {
     return (
       <>
-        <Error403 />
+        <Error403 links={'/admin/login'} />
       </>
     );
   }

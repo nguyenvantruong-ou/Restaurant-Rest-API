@@ -1,7 +1,7 @@
 import './error403.css';
 import { Link } from 'react-router-dom';
 
-const Error403 = () => {
+const Error403 = ({ links }) => {
   return (
     <div className="box-content-403">
       <div className="scene">
@@ -17,7 +17,7 @@ const Error403 = () => {
           </span>
           <span className="support">
             <span>unexpected?</span>
-            <Link to={'/auth/login'}>Login</Link>
+            <Link to={links}>Login</Link>
           </span>
         </div>
         <div className="lock"></div>

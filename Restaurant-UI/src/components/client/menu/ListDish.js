@@ -14,6 +14,7 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import FormatPrice from '../../FormatPrice';
 import axios from 'axios';
+import { CheckBox } from '@mui/icons-material';
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -64,7 +65,7 @@ const ListDish = () => {
             {item.menuName} -- <FormatPrice price={item.menuPrice} />$
           </Typography>
           <Grid container>
-            <Grid item xs={7}>
+            <Grid item xs={8}>
               <Item>
                 <CardActionArea>
                   <CardMedia
@@ -76,14 +77,14 @@ const ListDish = () => {
                 </CardActionArea>
               </Item>
             </Grid>
-            <Grid item xs={5}>
+            <Grid item xs={4}>
               <Item>
-                <ImageList sx={{ width: 470, height: 470 }}>
+                <ImageList cols={1} sx={{ width: 370, height: 470 }}>
                   {item.listDish.map((dish) => (
                     <ImageListItem key={dish.dishName}>
                       <img
-                        src={dish.dishImage}
-                        srcSet={dish.dishImage}
+                        src={`${dish.dishImage}?w=248&fit=crop&auto=format`}
+                        srcSet={`${dish.dishImage}?w=248&fit=crop&auto=format&dpr=2 2x`}
                         alt={dish.name}
                         loading="lazy"
                       />

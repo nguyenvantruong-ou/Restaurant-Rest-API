@@ -1,6 +1,6 @@
 import React from 'react';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
-import { Pie } from 'react-chartjs-2';
+import { Doughnut } from 'react-chartjs-2';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 function random_rgba() {
@@ -8,7 +8,7 @@ function random_rgba() {
     r = Math.random,
     s = 255;
   return (
-    'rgb(' + o(r() * s) + ',' + o(r() * s) + ',' + o(r() * s) + ',' + 0.6 + ')'
+    'rgba(' + o(r() * s) + ',' + o(r() * s) + ',' + o(r() * s) + ',' + 0.3 + ')'
   );
 }
 
@@ -24,17 +24,17 @@ const StatsChart = (props) => {
     labels: labels,
     datasets: [
       {
-        label: 'Thống kê mật độ đặt tiệc',
+        label: props.title,
         data: datas,
         backgroundColor: colors,
         borderColor: colors,
-        borderWidth: 0.4,
+        borderWidth: 0.7,
       },
     ],
   };
 
   return (
-    <Pie
+    <Doughnut
       data={data}
       width={2}
       height={'300px'}

@@ -2,12 +2,12 @@ import Carousel from 'react-bootstrap/Carousel';
 
 const LobbyCarousel = () => {
   return (
-    <Carousel fade >
+    <Carousel fade>
       <Carousel.Item>
         <img
           height={400}
           className="d-block w-100"
-          src="https://res.cloudinary.com/dqifjhxxg/image/upload/v1661659210/restaurant%20management/banner/lobby5_ffptnm.jpg"
+          src="https://www.burnabyhall.com/wp-content/uploads/static/slide-1.jpg"
           alt="First slide"
         />
         <Carousel.Caption>
@@ -20,7 +20,7 @@ const LobbyCarousel = () => {
         <img
           height={400}
           className="d-block w-100"
-          src="https://res.cloudinary.com/dqifjhxxg/image/upload/v1661659210/restaurant%20management/banner/lobby5_ffptnm.jpg"
+          src="https://ashlandhillshotel.com/wp-content/uploads/2017/08/BG-wedding-banner-top.jpg"
           alt="Second slide"
         />
         <Carousel.Caption>
@@ -33,7 +33,7 @@ const LobbyCarousel = () => {
         <img
           height={400}
           className="d-block w-100"
-          src="https://res.cloudinary.com/dqifjhxxg/image/upload/v1661659210/restaurant%20management/banner/lobbyHeader_hstklf.jpg"
+          src="https://www.1-host.sg/wp-content/uploads/2021/01/The-Riverhouse-Wedding-Banner.jpg"
           alt="Third slide"
         />
         <Carousel.Caption>
@@ -45,6 +45,6 @@ const LobbyCarousel = () => {
       </Carousel.Item>
     </Carousel>
   );
-}
+};
 
 export default LobbyCarousel;

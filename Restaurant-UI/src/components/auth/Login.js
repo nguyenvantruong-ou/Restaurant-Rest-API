@@ -1,7 +1,6 @@
 import * as React from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
@@ -11,9 +10,9 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import { Paper } from '@mui/material';
 
 function Copyright(props) {
   return (
@@ -30,8 +29,6 @@ function Copyright(props) {
   );
 }
 
-const theme = createTheme();
-
 export default function Login() {
   const nav = useNavigate();
   document.title = 'Đăng nhập';
@@ -42,7 +39,7 @@ export default function Login() {
 
     const info = new FormData(event.currentTarget);
     var data = JSON.stringify({
-      username: info.get('email'),
+      username: info.get('username'),
       password: info.get('password'),
     });
 
@@ -63,28 +60,37 @@ export default function Login() {
         localStorage.setItem('username', res.data.username);
         localStorage.setItem('role', res.data.roles);
         toast.success(response.data.message, {
-          position: toast.POSITION.TOP_RIGHT,
+          position: toast.POSITION.BOTTOM_RIGHT,
         });
         if (res.code === 200) nav('/');
       })
       .catch(function (error) {
-        toast.success(error.message, {
-          position: toast.POSITION.TOP_RIGHT,
-        });
+        toast.error('Đăng nhập thất bại');
       });
   };
 
   return (
-    <ThemeProvider theme={theme}>
+    <div
+      className="bg-login"
+      style={{
+        backgroundColor: 'lightblue',
+        height: '100vh',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundImage:
+          'linear-gradient(to bottom right, rgb(29, 28, 229), rgb(196, 122, 255))',
+      }}
+    >
       <Container component="main" maxWidth="xs">
-        <CssBaseline />
-        <Box
+        <Paper
           sx={{
-            marginTop: 8,
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
+            padding: '30px',
           }}
+          elevation={10}
         >
           <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
             <LockOutlinedIcon />
@@ -102,10 +108,10 @@ export default function Login() {
               margin="normal"
               required
               fullWidth
-              id="email"
-              label="Địa chỉ Email"
-              name="email"
-              autoComplete="email"
+              id="username"
+              label="Tên đăng nhập"
+              name="username"
+              autoComplete="username"
               autoFocus
             />
             <TextField
@@ -142,10 +148,10 @@ export default function Login() {
                 </Link>
               </Grid>
             </Grid>
-          </Box>
-        </Box>
-        <Copyright sx={{ mt: 8, mb: 4 }} />
+          </Box>{' '}
+          <Copyright sx={{ mt: 8, mb: 4 }} />
+        </Paper>
       </Container>
-    </ThemeProvider>
+    </div>
   );
 }

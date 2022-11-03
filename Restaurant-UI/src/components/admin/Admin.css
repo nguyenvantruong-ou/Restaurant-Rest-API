@@ -46,7 +46,6 @@ table tr {
 /*stats css */
 .box-stats {
   display: flex;
-  height: 100vh;
 }
 .box-stats .chart {
   width: 80%;
@@ -72,4 +71,53 @@ table thead {
 
 .box-stats-date label {
   margin: 0 10px;
+}
+
+input.search {
+  border: 1px solid #02b4b4;
+}
+.pagination {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 0;
+  font-size: 1.2rem;
+  gap: 5px;
+}
+
+.pagination .active .page-link {
+  background-color: #02b4b4;
+  color: #fff;
+  border: #02b4b4;
+}
+
+.pagination .page-link {
+  color: #02b4b4;
+}
+
+.box-button {
+  display: flex;
+}
+.box-button .btn-add {
+  height: 100%;
+  margin-right: 10px;
+  width: 25%;
+  padding: 10px;
+}
+
+.box-search {
+  width: 100%;
+  position: relative;
+}
+
+.box-search i {
+  font-size: 24px;
+  top: 20%;
+  position: absolute;
+  left: 10px;
+}
+
+input.search-admin {
+  border: 1px solid #02b4b4 !important;
 }

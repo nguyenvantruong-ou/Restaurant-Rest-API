@@ -5,6 +5,7 @@ import Banner from '../Banner';
 import TitlePage from '../TitlePage';
 import ServiceList from './ServiceList';
 import { CameraAlt } from '@mui/icons-material';
+import DishCarousel from '../dish-carousel/DishCarousel';
 
 const bannerURL =
   'https://res.cloudinary.com/dqifjhxxg/image/upload/v1661664980/restaurant%20management/banner/service-header_pnhkwg.jpg';
@@ -35,6 +36,7 @@ const Service = () => {
         </Typography>
         <ServiceList />
       </Container>
+      <DishCarousel />
     </>
   );
 };

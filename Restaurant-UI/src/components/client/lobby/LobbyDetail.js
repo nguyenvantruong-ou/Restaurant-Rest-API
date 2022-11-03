@@ -5,7 +5,7 @@ import FormatPrice from '../../FormatPrice';
 import Banner from '../Banner';
 import axios from 'axios';
 import LobbyComment from './LobbyComment';
-import ListImage from './ListImage';
+import ThumbnailSlider from '../thumbnail-slider/ThumbnailSlider';
 
 const imageUrl =
   'https://res.cloudinary.com/dqifjhxxg/image/upload/v1663856586/restaurant%20management/banner/_mg_9983_v3yqzw.jpg';
@@ -68,12 +68,12 @@ const LobbyDetail = () => {
         >
           {lobby.lobDescription}
         </Typography>
-        <Grid container spacing={1}>
+        <Grid container spacing={12}>
           <Grid item xs={6}>
             <img
               src={lobby.lobImage}
               style={{
-                width: 500,
+                width: 620,
                 height: 350,
                 marginBottom: 20,
               }}
@@ -187,6 +187,31 @@ const LobbyDetail = () => {
             </li>
           </ul>
         </div>
+        {lobby.listImage !== undefined ? (
+          lobby.listImage.length > 0 ? (
+            <>
+              <Typography
+                sx={{
+                  fontSize: 30,
+                  textAlign: 'center',
+                  marginTop: 5,
+                  color: '#c47135',
+                  textTransform: 'uppercase',
+                }}
+              >
+                Một số ảnh chi tiết về sảnh
+              </Typography>
+              <div style={{ marginBottom: '150px' }}>
+                <ThumbnailSlider listImages={lobby.listImage} />
+              </div>
+            </>
+          ) : (
+            ''
+          )
+        ) : (
+          ''
+        )}
+
         <LobbyComment lobbyID={id} />
       </Container>
     </>

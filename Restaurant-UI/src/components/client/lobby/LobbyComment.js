@@ -1,9 +1,10 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Button } from 'react-bootstrap';
+import Moment from 'react-moment';
+import StarRatings from 'react-star-ratings';
 import { toast } from 'react-toastify';
 import './comment-lobby.css';
-import Star from './Star';
 
 const LobbyComment = (props) => {
   const [isComment, setIsComment] = useState(false);
@@ -23,36 +24,40 @@ const LobbyComment = (props) => {
   const SentCommentClick = async () => {
     const content = document.getElementById('cmt-content');
     const numStars = radioValue();
-    const data = {
-      content: content.value,
-      star: numStars,
-      userID: localStorage.getItem('userID'),
-      lobID: props.lobbyID,
-      isIncognito: true,
-    };
+    if (content.value !== '') {
+      const data = {
+        content: content.value,
+        star: numStars,
+        userID: localStorage.getItem('userID'),
+        lobID: props.lobbyID,
+        isIncognito: true,
+      };
 
-    var config = {
-      method: 'post',
-      url: 'http://localhost:8989/api/client/add-comment',
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-        'Content-Type': 'application/json',
-      },
-      data: data,
-    };
+      var config = {
+        method: 'post',
+        url: 'http://localhost:8989/api/client/add-comment',
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+          'Content-Type': 'application/json',
+        },
+        data: data,
+      };
 
-    axios(config)
-      .then(function (response) {
-        setCmtSuccess(true);
-        toast.success(response.data.message, {
-          position: toast.POSITION.TOP_RIGHT,
+      axios(config)
+        .then(function (response) {
+          setCmtSuccess(true);
+          toast.success(response.data.message, {
+            position: toast.POSITION.TOP_RIGHT,
+          });
+        })
+        .catch(function (error) {
+          toast.error(error.message, {
+            position: toast.POSITION.TOP_RIGHT,
+          });
         });
-      })
-      .catch(function (error) {
-        toast.error(error.message, {
-          position: toast.POSITION.TOP_RIGHT,
-        });
-      });
+    } else {
+      toast.error('Vui lòng nhập bình luận');
+    }
   };
 
   useEffect(() => {
@@ -107,11 +112,12 @@ const LobbyComment = (props) => {
               <span className="avg-star">{cmt.avgStar}</span>
               <span>trên 5</span>
               <div className="total-icon-star">
-                <div className="stars"></div>
-                <div className="stars"></div>
-                <div className="stars"></div>
-                <div className="stars"></div>
-                <div className="stars"></div>
+                <StarRatings
+                  rating={cmt.avgStar}
+                  starDimension="25px"
+                  starSpacing="0px"
+                  starRatedColor="#d00927"
+                />
               </div>
             </div>
             <div className="overview-filter">5 Sao ({cmt.amount5Star})</div>
@@ -158,8 +164,19 @@ const LobbyComment = (props) => {
                 </div>
                 <div className="cmt-content">
                   <div>{cmt.name}</div>
-                  <div className="created-date">{cmt.createdDay}</div>
-                  <Star numStar={cmt.cmtStar} />
+                  <div className="created-date">
+                    <Moment fromNow>{cmt.createdDay}</Moment>
+                    {' | '}
+                    {new Date(cmt.createdDay).toLocaleString('vi-VI')}
+                  </div>
+                  <div className="star-area">
+                    <StarRatings
+                      rating={cmt.cmtStar}
+                      starDimension="15px"
+                      starSpacing="0px"
+                      starRatedColor="#ff0000"
+                    />
+                  </div>
                   <div>{cmt.cmtContent}</div>
                 </div>
               </div>

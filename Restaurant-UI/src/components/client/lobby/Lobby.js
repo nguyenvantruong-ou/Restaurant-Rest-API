@@ -2,8 +2,8 @@ import { Deck } from '@mui/icons-material';
 import { Container } from '@mui/system';
 import React from 'react';
 import Banner from '../Banner';
+import DishCarousel from '../dish-carousel/DishCarousel';
 import TitlePage from '../TitlePage';
-
 import LobbyList from './LobbyList';
 
 const imageUrl =
@@ -39,6 +39,7 @@ const Lobby = () => {
         </div>
         <LobbyList />
       </Container>
+      <DishCarousel />
     </>
   );
 };

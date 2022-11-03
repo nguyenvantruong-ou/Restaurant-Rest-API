@@ -1,10 +1,9 @@
 .slider {
   width: 640px;
   position: relative;
+  display: block;
   padding-top: 320px;
-
-  margin: 100px auto;
-
+  margin: 20px auto;
   box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.75);
 }
 

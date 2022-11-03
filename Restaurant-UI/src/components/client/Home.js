@@ -1,6 +1,7 @@
 import { Grid, Paper } from '@mui/material';
 import { Container } from '@mui/system';
 import React from 'react';
+import DishCarousel from './dish-carousel/DishCarousel';
 import LobbyCarousel from './lobby/LobbyCarousel';
 import TitlePage from './TitlePage';
 
@@ -65,6 +66,7 @@ const Home = () => {
           </Grid>
         </Grid>
       </Container>
+      <DishCarousel />
     </div>
   );
 };

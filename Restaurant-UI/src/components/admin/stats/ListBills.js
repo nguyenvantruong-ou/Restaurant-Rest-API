@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import Title from '../Title';
-import SearchBar from '../../SearchBar';
-import TableBill from './TableBill';
+
 import axios from 'axios';
 import Error403 from '../../ErrorPages/Error403';
+import PaginationFull from '../../pagination/PaginationFull';
 
 const BillManagement = () => {
   const role = localStorage.getItem('role');
@@ -31,14 +31,13 @@ const BillManagement = () => {
     return (
       <>
         <Title title={'Danh sách tất cả hoá đơn'} />
-        <SearchBar />
-        <TableBill listBills={bills} />
+        <PaginationFull listItems={bills} />
       </>
     );
   } else {
     return (
       <>
-        <Error403 />
+        <Error403 links={'/admin/login'} />
       </>
     );
   }

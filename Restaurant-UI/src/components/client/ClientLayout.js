@@ -4,12 +4,12 @@ import { Outlet } from 'react-router-dom';
 
 import Header from './header/Header';
 import Footer from './footer/Footer';
-// import ThumbnailSlider from './thumbnail-slider/ThumbnailSlider';
+import './client.css';
 
 const ClientLayout = () => {
   document.title = 'Thành Văn';
   document.querySelector("link[rel*='icon']").href =
-    '../../assets/images/logo.png';
+    'https://res.cloudinary.com/dqifjhxxg/image/upload/v1667017299/restaurant%20management/cheers_updtj6.png';
   return (
     <>
       <Header />
@@ -18,7 +18,6 @@ const ClientLayout = () => {
           <Outlet />
         </div>
       </div>
-      {/* <ThumbnailSlider /> */}
       <Footer />
     </>
   );

@@ -1,3 +1,4 @@
+import { BorderColor, Cancel, CheckCircle, Delete } from '@mui/icons-material';
 import React from 'react';
 import { useState } from 'react';
 import { Button, Modal, Table } from 'react-bootstrap';
@@ -30,7 +31,6 @@ const TableUser = (props) => {
             <th className="center">Trạng thái</th>
             <th className="center">Ảnh</th>
             <th></th>
-            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -44,7 +44,11 @@ const TableUser = (props) => {
               <td className="center">{user.userIdCard}</td>
               <td className="center">{user.userRole}</td>
               <td className="center">
-                {user.userIsActive ? 'hoạt động' : 'ngưng hoạt động'}
+                {user.userIsActive ? (
+                  <CheckCircle color="success" />
+                ) : (
+                  <Cancel sx={{ color: 'darkred' }} />
+                )}
               </td>
               <td className="center">
                 <img
@@ -56,18 +60,22 @@ const TableUser = (props) => {
                 ></img>
               </td>
               <td className="center">
-                <Button onClick={handleEditShow}>Sửa</Button>
-              </td>
-              <td className="center">
-                <Button onClick={handleDeleteShow} variant="danger">
-                  Xoá
+                <Button
+                  style={{ marginRight: '10px' }}
+                  variant="outline-primary"
+                  onClick={handleEditShow}
+                >
+                  <BorderColor />
+                </Button>
+                <Button onClick={handleDeleteShow} variant="outline-danger">
+                  <Delete />
                 </Button>
               </td>
             </tr>
           ))}
         </tbody>
       </Table>
-      <Modal show={showEdit} onHide={handleEditClose}>
+      <Modal centered show={showEdit} onHide={handleEditClose}>
         <Modal.Header closeButton>
           <Modal.Title>Chỉnh sửa thông tin</Modal.Title>
         </Modal.Header>
@@ -81,7 +89,7 @@ const TableUser = (props) => {
           </Button>
         </Modal.Footer>
       </Modal>
-      <Modal show={showDelete} onHide={handleDeleteClose}>
+      <Modal centered show={showDelete} onHide={handleDeleteClose}>
         <Modal.Header closeButton>
           <Modal.Title>Xác nhận xoá</Modal.Title>
         </Modal.Header>

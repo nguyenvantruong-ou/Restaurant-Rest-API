@@ -41,9 +41,9 @@ const ServiceList = () => {
   return (
     <>
       <Grid container>
-        {services.map((service) => (
-          <>
-            <Grid item xs={3}>
+        {services.map((service, index) => (
+          <Grid key={index} item xs={6} display={'flex'}>
+            <Grid item xs={6}>
               <Item>
                 <CardActionArea>
                   <CardMedia
@@ -55,7 +55,7 @@ const ServiceList = () => {
                 </CardActionArea>
               </Item>
             </Grid>
-            <Grid item xs={3}>
+            <Grid item xs={6}>
               <Item>
                 <CardContent sx={{ textAlign: 'center' }}>
                   <Typography
@@ -81,7 +81,7 @@ const ServiceList = () => {
                 </CardContent>
               </Item>
             </Grid>
-          </>
+          </Grid>
         ))}
       </Grid>
     </>

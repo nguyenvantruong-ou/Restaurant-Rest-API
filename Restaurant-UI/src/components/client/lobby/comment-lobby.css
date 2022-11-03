@@ -45,7 +45,8 @@
 
 .cmt-user {
   display: flex;
-  margin: 20px;
+  padding: 20px 0 20px 10px;
+  border-bottom: 1px solid rgb(236, 233, 233);
 }
 
 .image {
@@ -121,4 +122,8 @@
   width: 15px;
   height: 15px;
   color: rebeccapurple;
+}
+
+.star-area {
+  display: flex;
 }
