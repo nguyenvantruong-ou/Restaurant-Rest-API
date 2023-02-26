@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
@@ -18,7 +19,7 @@ import java.util.List;
 @Repository
 @Transactional
 public class OrderClientRepositoryImpl implements OrderClientRepository {
-    @Autowired
+    @PersistenceContext
     private EntityManager _em;
 
     @Override

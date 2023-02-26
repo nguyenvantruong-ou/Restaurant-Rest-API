@@ -33,7 +33,9 @@ public class Lobby {
     @Column(name = "lob_description", length = 500)
     private String lobDescription;
 
-
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "branch_id")
+    private Branch branch;
 
     public Integer getId() {
         return id;

@@ -57,6 +57,7 @@ public class FeedbackRepositoryImpl implements FeedbackRepository {
     private int totalUnreadByUserID(int user_id){
         int r =(int)(long) _em.createQuery("SELECT count(f.id) FROM Feedback f  WHERE f.user.id = :id " +
                         "AND f.feedIsRead = false ", Long.class)
+
                 .setParameter("id", user_id)
                 .getResultList().get(0);
 
