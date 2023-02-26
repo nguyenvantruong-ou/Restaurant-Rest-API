@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
 import java.util.Properties;
@@ -19,7 +20,8 @@ public class MailUtil {
     private static final String password = "jzijmflhrieywrcn";
     private static final String subject = "Nhà hàng Thành Văn";
 
-    public static void SendMail(String toEmail, String content)throws MessagingException, UnsupportedEncodingException{
+    @Async
+    public void SendMail(String toEmail, String content)throws MessagingException, UnsupportedEncodingException{
 
         final String body = content;
         Properties props = new Properties();

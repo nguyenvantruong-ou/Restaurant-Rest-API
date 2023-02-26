@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.Date;
@@ -19,7 +20,7 @@ import java.util.List;
 @Repository
 @Transactional
 public class CommentClientRepositoryImpl implements CommentClientRepository {
-    @Autowired
+    @PersistenceContext
     private EntityManager _em;
 
     @Override

@@ -5,4 +5,5 @@ public class Code {
     public static final int INVALID_REQUEST = 401;
     public static final int NOT_FOUND = 400;
     public static final int INVALID  = 403;
+    public static final int ERROR  = 500;
 }

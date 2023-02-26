@@ -2,15 +2,13 @@ package com.ou.restaurantmanagement.Repository.Impl.Client;
 
 import com.ou.restaurantmanagement.DTO.Request.IBaseRequest;
 import com.ou.restaurantmanagement.DTO.Request.Order.BillRequestDTO;
-import com.ou.restaurantmanagement.Pojos.Bill;
-import com.ou.restaurantmanagement.Pojos.Order;
-import com.ou.restaurantmanagement.Pojos.OrderMenu;
-import com.ou.restaurantmanagement.Pojos.OrderService;
+import com.ou.restaurantmanagement.Pojos.*;
 import com.ou.restaurantmanagement.Repository.Client.PaymentClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -19,7 +17,7 @@ import java.util.List;
 @Repository
 @Transactional
 public class PaymentClientRepositoryImpl implements PaymentClientRepository {
-    @Autowired
+    @PersistenceContext
     private EntityManager _em;
 
     @Override
@@ -33,6 +31,9 @@ public class PaymentClientRepositoryImpl implements PaymentClientRepository {
             bill.setUser_id(req.getUserID());
             bill.setBillTotalMoney(totalMoney(req.getOrderID()));
             bill.setBillNote(noteBill(req));
+            Discount d = new Discount();
+            d.setId(1);
+            bill.setDiscount(d);
             _em.persist(bill);
 
             // update order

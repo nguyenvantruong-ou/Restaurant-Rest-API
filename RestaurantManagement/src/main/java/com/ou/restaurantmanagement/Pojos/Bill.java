@@ -28,6 +28,10 @@ public class Bill {
     @Column(name = "bill_note", length = 500)
     private String billNote;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "bill_discount_id")
+    private Discount discount;
+
     public Integer getId() {
         return id;
     }
@@ -67,5 +71,13 @@ public class Bill {
 
     public void setUser_id(int user_id) {
         this.user_id = user_id;
+    }
+
+    public Discount getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(Discount discount) {
+        this.discount = discount;
     }
 }

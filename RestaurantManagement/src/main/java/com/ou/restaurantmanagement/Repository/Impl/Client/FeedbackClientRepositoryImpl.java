@@ -9,13 +9,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.util.Date;
 
 @Repository
 @Transactional
 public class FeedbackClientRepositoryImpl implements FeedbackClientRepository {
-    @Autowired
+    @PersistenceContext
     private EntityManager _em;
 
     @Override
