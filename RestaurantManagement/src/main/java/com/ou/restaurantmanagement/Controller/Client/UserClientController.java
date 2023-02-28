@@ -6,10 +6,8 @@ import com.ou.restaurantmanagement.DTO.Constant.Code;
 import com.ou.restaurantmanagement.DTO.Request.ConfirmRegisterRequestDTO;
 import com.ou.restaurantmanagement.DTO.Request.LoginRequestDTO;
 import com.ou.restaurantmanagement.DTO.Request.RegisterRequestDTO;
-import com.ou.restaurantmanagement.DTO.Response.Common;
-import com.ou.restaurantmanagement.DTO.Response.IBaseResponse;
-import com.ou.restaurantmanagement.DTO.Response.JwtResponse;
-import com.ou.restaurantmanagement.DTO.Response.UserDetailResponse;
+import com.ou.restaurantmanagement.DTO.Response.*;
+import com.ou.restaurantmanagement.Pojos.User;
 import com.ou.restaurantmanagement.Service.Client.UserClientService;
 import com.ou.restaurantmanagement.Utils.Jwt.JwtUtil;
 import com.ou.restaurantmanagement.Utils.Jwt.UserPrinciple.UserPrinciple;
@@ -114,6 +112,26 @@ public class UserClientController {
             if(e.getMessage().equals("Tài khoản không hoạt động!"))
                 return new Common(Code.NOT_FOUND, null, e.getMessage());
             return  new Common(Code.NOT_FOUND, null, "Tên tài khoản hoặc mật khẩu sai! Vui lòng kiểm tra lại!");
+        }
+    }
+
+    @PostMapping("refresh-token")
+    @PreAuthorize("hasAnyAuthority('USER', 'STAFF', 'ADMIN')")
+    @CrossOrigin
+    public Common RefreshToken(@RequestHeader("Authorization") String authHeader){
+        try {
+            String token = authHeader.substring(7); // Remove "Bearer " prefix
+            Claims claims = Jwts.parser().setSigningKey(_SECRET_KEY)
+                    .parseClaimsJws(token).getBody();
+            int id = (int) claims.get("userId");
+            User credentials = _userService.getProfile(id);
+            return new Common(Code.OK,
+                    new RefreshTokenResponse(jwtUtil.createNewToken(credentials,_expAccessToken),
+                            jwtUtil.createNewToken(credentials, _expRefreshToken)),
+                    "Refresh Token thành công");
+        }
+        catch (Exception e) {
+            return new Common(Code.ERROR, null, "Lỗi hệ thống!");
         }
     }
 
