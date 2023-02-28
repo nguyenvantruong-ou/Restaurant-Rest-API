@@ -1,5 +1,7 @@
 package com.ou.restaurantmanagement.Utils.Jwt;
 
+import com.ou.restaurantmanagement.Pojos.User;
+import com.ou.restaurantmanagement.Pojos.UserToken;
 import com.ou.restaurantmanagement.Utils.Jwt.UserPrinciple.UserPrinciple;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.Jwts;
@@ -28,6 +30,18 @@ public class JwtUtil {
                 .signWith(SignatureAlgorithm.HS512, jwtSecret)
                 .compact();
     }
+
+    public String createNewToken(User user, int jwtExpiration){
+        return Jwts.builder()
+                .setSubject(user.getUserUsename())
+                .setIssuedAt(new Date())
+                .setExpiration(new Date(System.currentTimeMillis() + jwtExpiration))
+                .claim("roles", user.getUserRole())
+                .claim("userId", user.getId())
+                .signWith(SignatureAlgorithm.HS512, jwtSecret)
+                .compact();
+    }
+
     public boolean validateToken(String token){
         try {
             Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token);
