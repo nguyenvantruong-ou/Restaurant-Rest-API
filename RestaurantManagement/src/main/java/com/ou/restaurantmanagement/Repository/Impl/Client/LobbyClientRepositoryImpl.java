@@ -3,6 +3,7 @@ package com.ou.restaurantmanagement.Repository.Impl.Client;
 import com.ou.restaurantmanagement.DTO.Request.IBaseRequest;
 import com.ou.restaurantmanagement.DTO.Request.LobbyRequestDTO;
 import com.ou.restaurantmanagement.DTO.Response.LobbyComboboxResponse;
+import com.ou.restaurantmanagement.DTO.Response.LobbyCustomResponse;
 import com.ou.restaurantmanagement.DTO.Response.LobbyDetailsResponse;
 import com.ou.restaurantmanagement.DTO.Response.LobbyResponse;
 import com.ou.restaurantmanagement.Pojos.Lobby;
@@ -17,6 +18,7 @@ import javax.persistence.TypedQuery;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.text.Normalizer;
 
 @Repository
 public class LobbyClientRepositoryImpl implements LobbyClientRepository {
@@ -42,10 +44,30 @@ public class LobbyClientRepositoryImpl implements LobbyClientRepository {
         tp.setMaxResults(req.getSize());
 
         listLobby = tp.getResultList();
-        rep.setListLobby(listLobby);
+
+        // update slug
+        List<LobbyCustomResponse> rs = new ArrayList<>();
+        listLobby.forEach( (Lobby lob) -> {
+            LobbyCustomResponse r = new LobbyCustomResponse(lob,
+                    createSlug(removeDiacritics(lob.getLobName())));
+            rs.add(r);
+        });
+
+        rep.setListLobby(rs);
 
         return rep;
-
+    }
+    private static String removeDiacritics(String str) {
+        String nfdNormalizedString = Normalizer.normalize(str, Normalizer.Form.NFD);
+        return nfdNormalizedString.replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
+    }
+    private String createSlug(String inputString) {
+        String slug = inputString.trim().toLowerCase()
+                .replaceAll("\\s+", "-") // replace whitespace with dash
+                .replaceAll("[^\\p{ASCII}]", "") // remove non-ASCII characters
+                .replaceAll("[^a-zA-Z0-9-ả]", "") // remove any remaining non-alphanumeric characters
+                .replaceAll("-{2,}", "-"); // replace multiple dashes with a single dash
+        return slug;
     }
 
     private int maxPage(int size, int sizePage){

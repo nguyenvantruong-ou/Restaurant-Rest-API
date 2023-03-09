@@ -5,7 +5,7 @@ import com.ou.restaurantmanagement.Pojos.Lobby;
 import java.util.List;
 
 public class LobbyResponse {
-    private List<Lobby> listLobby;
+    private List<LobbyCustomResponse> listLobby;
     private int numberPage;
 
     public int getNumberPage() {
@@ -16,11 +16,11 @@ public class LobbyResponse {
         this.numberPage = numberPage;
     }
 
-    public List<Lobby> getListLobby() {
+    public List<LobbyCustomResponse> getListLobby() {
         return listLobby;
     }
 
-    public void setListLobby(List<Lobby> listLobby) {
+    public void setListLobby(List<LobbyCustomResponse> listLobby) {
         this.listLobby = listLobby;
     }
 }
