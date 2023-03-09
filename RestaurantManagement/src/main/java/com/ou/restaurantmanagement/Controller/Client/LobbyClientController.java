@@ -1,6 +1,7 @@
 package com.ou.restaurantmanagement.Controller.Client;
 
 import com.ou.restaurantmanagement.DTO.Request.LobbyRequestDTO;
+import com.ou.restaurantmanagement.DTO.Response.Common;
 import com.ou.restaurantmanagement.DTO.Response.IBaseResponse;
 import com.ou.restaurantmanagement.Service.Client.LobbyClientService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,12 @@ public class LobbyClientController {
         req.setPage(Integer.valueOf(params.get("page")));
         req.setKw(params.get("kw"));
 
-        return _lobbyService.getListLobby(req);
+        try {
+            return _lobbyService.getListLobby(req);
+        }
+        catch (Exception e){
+            return new Common(1, e, "");
+        }
     }
 
     @GetMapping("/get-lobby-by-id")

@@ -5,6 +5,7 @@ import com.ou.restaurantmanagement.DTO.Request.IBaseRequest;
 import com.ou.restaurantmanagement.DTO.Request.LobbyRequestDTO;
 import com.ou.restaurantmanagement.DTO.Response.Common;
 import com.ou.restaurantmanagement.DTO.Response.IBaseResponse;
+import com.ou.restaurantmanagement.DTO.Response.LobbyResponse;
 import com.ou.restaurantmanagement.Repository.Client.LobbyClientRepository;
 import com.ou.restaurantmanagement.Service.Client.LobbyClientService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,7 @@ public class LobbyClientServiceImpl implements LobbyClientService {
         LobbyRequestDTO req = (LobbyRequestDTO) input;
         try {
             if(req.getSize() > 0 && req.getPage() > 0){
-                return new Common(Code.OK, _lobbyRepository.getListLobby(input),
+                return new Common(Code.OK,  _lobbyRepository.getListLobby(input),
                         "Lấy danh sách thành công");
             }
             else

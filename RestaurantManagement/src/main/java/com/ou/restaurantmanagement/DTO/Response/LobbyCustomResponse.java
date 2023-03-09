@@ -1,41 +1,42 @@
-package com.ou.restaurantmanagement.Pojos;
-import javax.persistence.*;
+package com.ou.restaurantmanagement.DTO.Response;
+
+import com.ou.restaurantmanagement.Pojos.Branch;
+import com.ou.restaurantmanagement.Pojos.Lobby;
+
 import java.math.BigDecimal;
-import java.util.List;
 
-
-@Entity
-@Table(name = "lobby")
-public class Lobby {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "lob_id", nullable = false)
+public class LobbyCustomResponse {
     private Integer id;
 
-    @Column(name = "lob_name")
     private String lobName;
 
-    @Column(name = "lob_address")
+    private String lobSlug;
+
     private String lobAddress;
 
-    @Column(name = "lob_price", precision = 12)
     private BigDecimal lobPrice;
 
-    @Column(name = "lob_is_active")
     private Boolean lobIsActive;
 
-    @Column(name = "lob_total_table")
     private Integer lobTotalTable;
 
-    @Column(name = "lob_image")
     private String lobImage;
 
-    @Column(name = "lob_description", length = 500)
     private String lobDescription;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "branch_id")
-    private Branch branch;
+    private Branch branchName;
+
+    public LobbyCustomResponse(Lobby lobby, String slug){
+        setId(lobby.getId());
+        setLobName(lobby.getLobName());
+        setLobSlug(slug);
+        setLobPrice(lobby.getLobPrice());
+        setLobIsActive(lobby.getLobIsActive());
+        setLobTotalTable(lobby.getLobTotalTable());
+        setLobImage(lobby.getLobImage());
+        setLobDescription(lobby.getLobDescription());
+        setBranchName(lobby.getBranch());
+    }
 
     public Integer getId() {
         return id;
@@ -51,6 +52,14 @@ public class Lobby {
 
     public void setLobName(String lobName) {
         this.lobName = lobName;
+    }
+
+    public String getLobSlug() {
+        return lobSlug;
+    }
+
+    public void setLobSlug(String lobSlug) {
+        this.lobSlug = lobSlug;
     }
 
     public String getLobAddress() {
@@ -101,11 +110,11 @@ public class Lobby {
         this.lobDescription = lobDescription;
     }
 
-    public Branch getBranch() {
-        return branch;
+    public Branch getBranchName() {
+        return branchName;
     }
 
-    public void setBranch(Branch branch) {
-        this.branch = branch;
+    public void setBranchName(Branch branchName) {
+        this.branchName = branchName;
     }
 }
