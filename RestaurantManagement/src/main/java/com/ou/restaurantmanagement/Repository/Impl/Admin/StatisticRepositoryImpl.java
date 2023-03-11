@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 import java.math.BigDecimal;
@@ -17,7 +18,7 @@ import java.util.List;
 @Repository
 @Transactional
 public class StatisticRepositoryImpl implements StatisticRepository {
-    @Autowired
+    @PersistenceContext
     private EntityManager _em;
 
     @Override

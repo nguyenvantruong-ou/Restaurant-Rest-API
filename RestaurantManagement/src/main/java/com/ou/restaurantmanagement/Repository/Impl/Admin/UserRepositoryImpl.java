@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 import java.util.List;
@@ -19,8 +20,7 @@ import java.util.List;
 @Repository
 @Transactional
 public class UserRepositoryImpl implements UserRepository {
-
-    @Autowired
+    @PersistenceContext
     private EntityManager _em;
 
     @Override

@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 import java.text.Normalizer;
@@ -19,7 +20,7 @@ import java.util.List;
 @Repository
 @Transactional
 public class LobbyRepositoryImpl implements LobbyRepository {
-    @Autowired
+    @PersistenceContext
     private EntityManager _em;
 
     @Override
