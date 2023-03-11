@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.util.*;
@@ -15,7 +16,7 @@ import java.util.*;
 @Repository
 @Transactional
 public class FeedbackRepositoryImpl implements FeedbackRepository {
-    @Autowired
+    @PersistenceContext
     private EntityManager _em;
 
     @Override
