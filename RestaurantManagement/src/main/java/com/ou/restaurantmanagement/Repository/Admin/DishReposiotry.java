@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface DishReposiotry {
     void createDish(Dish dish);
-    List<Dish> readDishs();
+    List<Dish> readDishs(String kw);
     void updateDish(Dish dish);
     void deleteDish(int id);
 }

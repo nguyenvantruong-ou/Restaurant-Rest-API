@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface DishService {
     void createDish(DishCreateRequestDTO dish);
-    List<Dish> readDishs();
+    List<Dish> readDishs(String kw);
     void updateDish(DishUpdateRequestDTO dish);
     void deleteDish(int id);
 }

@@ -34,10 +34,10 @@ public class DishController {
     }
 
     @GetMapping("dish")
-    public Common readDish()//bo sung tm kiem
+    public Common readDish(@RequestParam String kw)
     {
         try {
-            return new Common(Code.OK, _dishService.readDishs(), "Thành công");
+            return new Common(Code.OK, _dishService.readDishs(kw), "Thành công");
         }
         catch (Exception e){
             return new Common(Code.ERROR, null, "Vui lòng kiểm tra lại!");

@@ -21,8 +21,9 @@ public class DishReposiotryImpl implements DishReposiotry {
     }
 
     @Override
-    public List<Dish> readDishs() {
-        return _em.createQuery("SELECT dish FROM Dish dish", Dish.class)
+    public List<Dish> readDishs(String kw) {
+        return _em.createQuery("SELECT dish FROM Dish dish WHERE dish.dishName like :kw", Dish.class)
+                .setParameter("kw","%" + kw + "%")
                 .getResultList();
     }
 

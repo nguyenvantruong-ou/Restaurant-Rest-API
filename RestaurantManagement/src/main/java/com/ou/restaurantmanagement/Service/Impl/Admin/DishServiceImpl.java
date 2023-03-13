@@ -28,8 +28,8 @@ public class DishServiceImpl implements DishService {
     }
 
     @Override
-    public List<Dish> readDishs() {
-        return _dishRepository.readDishs();
+    public List<Dish> readDishs(String kw) {
+        return _dishRepository.readDishs(kw);
     }
 
     @Override
