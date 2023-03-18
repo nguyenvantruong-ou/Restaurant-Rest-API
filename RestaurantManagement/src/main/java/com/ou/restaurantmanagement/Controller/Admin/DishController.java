@@ -51,7 +51,8 @@ public class DishController {
     public  Common updateDish(@RequestParam("id") int id,
                               @RequestParam("dishName") String dishName,
                               @RequestParam(name = "dishImage", required = false) MultipartFile file,
-                              @RequestParam("dishDescription") String dishDescription){
+                              @RequestParam("dishDescription") String dishDescription,
+                              @RequestParam("dishStatus") Boolean dishStatus){
         try {
             DishUpdateRequestDTO req = new DishUpdateRequestDTO();
             req.setId(id);
@@ -60,6 +61,7 @@ public class DishController {
                 req.setDishImage(file);
             else req.setDishImage(null);
             req.setDishDescription(dishDescription);
+            req.setDishStatus(dishStatus);
             _dishService.updateDish(req);
             return new Common(Code.OK, null, "Cập nhật thành công");
         }

@@ -48,6 +48,7 @@ public class DishServiceImpl implements DishService {
                 linkImage ,
                 dish.getDishDescription());
         d.setId(dish.getId());
+        d.setDishIsActive(dish.getDishStatus());
         _dishRepository.updateDish(d);
     }
 
