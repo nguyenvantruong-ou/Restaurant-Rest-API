@@ -35,6 +35,7 @@ public class DishReposiotryImpl implements DishReposiotry {
 
         d.setDishName(dish.getDishName());
         d.setdishDescription(dish.getDishDescription());
+        d.setDishIsActive(dish.getDishIsActive());
         if (dish.getDishImage() != null)
             d.setDishImage(dish.getDishImage());
 

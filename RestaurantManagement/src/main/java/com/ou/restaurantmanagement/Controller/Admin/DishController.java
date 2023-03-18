@@ -20,6 +20,7 @@ public class DishController {
     private DishService _dishService;
 
     @PostMapping("dish")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     public Common createDish(@RequestParam("dishImage") MultipartFile dishImage,
                              @RequestParam("dishName") String dishName,
                              @RequestParam("dishDescription") String dishDescription){
@@ -34,6 +35,7 @@ public class DishController {
     }
 
     @GetMapping("dish")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     public Common readDish(@RequestParam String kw)
     {
         try {
@@ -45,10 +47,12 @@ public class DishController {
     }
 
     @PutMapping("dish")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     public  Common updateDish(@RequestParam("id") int id,
                               @RequestParam("dishName") String dishName,
                               @RequestParam(name = "dishImage", required = false) MultipartFile file,
-                              @RequestParam("dishDescription") String dishDescription){
+                              @RequestParam("dishDescription") String dishDescription,
+                              @RequestParam("dishStatus") Boolean dishStatus){
         try {
             DishUpdateRequestDTO req = new DishUpdateRequestDTO();
             req.setId(id);
@@ -57,6 +61,7 @@ public class DishController {
                 req.setDishImage(file);
             else req.setDishImage(null);
             req.setDishDescription(dishDescription);
+            req.setDishStatus(dishStatus);
             _dishService.updateDish(req);
             return new Common(Code.OK, null, "Cập nhật thành công");
         }
@@ -66,6 +71,7 @@ public class DishController {
     }
 
     @DeleteMapping("dish/{id}")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     public Common deleteDish(@PathVariable int id){
         try {
             _dishService.deleteDish(id);
