@@ -3,11 +3,14 @@ package com.ou.restaurantmanagement.Controller.Client;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ou.restaurantmanagement.DTO.Constant.Code;
+import com.ou.restaurantmanagement.DTO.Constant.Role;
 import com.ou.restaurantmanagement.DTO.Request.ConfirmRegisterRequestDTO;
 import com.ou.restaurantmanagement.DTO.Request.LoginRequestDTO;
 import com.ou.restaurantmanagement.DTO.Request.RegisterRequestDTO;
 import com.ou.restaurantmanagement.DTO.Response.*;
+import com.ou.restaurantmanagement.Pojos.Staff;
 import com.ou.restaurantmanagement.Pojos.User;
+import com.ou.restaurantmanagement.Service.Admin.StaffService;
 import com.ou.restaurantmanagement.Service.Client.UserClientService;
 import com.ou.restaurantmanagement.Utils.Jwt.JwtUtil;
 import com.ou.restaurantmanagement.Utils.Jwt.UserPrinciple.UserPrinciple;
@@ -40,6 +43,10 @@ public class UserClientController {
 
     @Autowired
     private UserClientService _userService;
+
+    @Autowired
+    private StaffService _staffService;
+
     @Value("${jwt.secret-key}")
     private String _SECRET_KEY;
 
@@ -146,7 +153,12 @@ public class UserClientController {
             Claims claims = Jwts.parser().setSigningKey(_SECRET_KEY)
                     .parseClaimsJws(token).getBody();
             int id = (int) claims.get("userId");
-            return new Common(id, new UserDetailResponse(_userService.getProfile(id)),
+            User user = _userService.getProfile(id);
+            Staff staff = new Staff();
+            if (user.getUserRole().equals(Role.STAFF))
+                staff = _staffService.getStaff(user.getId());
+
+            return new Common( Code.OK, new UserDetailResponse(user, staff),
                       "Lấy thông tin thành công");
         }
         catch (Exception e)

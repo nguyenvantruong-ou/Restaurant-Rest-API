@@ -16,6 +16,8 @@ import com.ou.restaurantmanagement.Utils.MailUtil;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.EnableAsync;
@@ -53,6 +55,10 @@ public class UserClientServiceImpl implements com.ou.restaurantmanagement.Servic
     public IBaseResponse register(IBaseRequest input) throws MessagingException, UnsupportedEncodingException {
         RegisterRequestDTO register = (RegisterRequestDTO) input;
         // validate
+        String errorPW = checkPassword(register.getUserPassword());
+        if(errorPW != null)
+            return new Common(Code.INVALID_REQUEST, null, errorPW);
+
         if(!_checkValidate.isIdCart(register.getUserIdCard(), 0))
             return new Common(Code.INVALID_REQUEST, null, "CMND/CCCD đã tồn tại!");
         if(!_checkValidate.isUsername(register.getUserUsename(), 0))
@@ -69,6 +75,30 @@ public class UserClientServiceImpl implements com.ou.restaurantmanagement.Servic
         sendCode(register.getUserUsename(), lastestUserId);
 
         return new Common(Code.OK, null, "Đã gửi mã xác nhận");
+    }
+
+    public String checkPassword(String password) {
+        // Kiểm tra mật khẩu có độ dài hợp lệ
+        if (password.length() < 6) {
+            return "Độ dài mật khẩu phải từ 6 kí tự trở lên!";
+        }
+
+        // Kiểm tra mật khẩu có chứa ít nhất một kí tự đặc biệt
+        Pattern specialCharPattern = Pattern.compile("[!@#$%^&*()_+\\[\\]{};':\"\\\\|,.<>/?]");
+        Matcher specialCharMatcher = specialCharPattern.matcher(password);
+        if (!specialCharMatcher.find()) {
+            return "Mật khẩu phải chứa ít nhất một kí tự đặc biệt!";
+        }
+
+        // Kiểm tra mật khẩu có chứa ít nhất một chữ cái viết hoa
+        Pattern uppercaseLetterPattern = Pattern.compile("[A-Z]");
+        Matcher uppercaseLetterMatcher = uppercaseLetterPattern.matcher(password);
+        if (!uppercaseLetterMatcher.find()) {
+            return "Mật khẩu phải chứa ít nhất một chữ hoa!";
+        }
+
+        // Nếu mật khẩu đáp ứng tất cả các yêu cầu, trả về true
+        return null;
     }
 
     @Override
