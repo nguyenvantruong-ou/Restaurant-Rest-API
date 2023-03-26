@@ -1,5 +1,6 @@
 package com.ou.restaurantmanagement.DTO.Response;
 
+import com.ou.restaurantmanagement.Pojos.Staff;
 import com.ou.restaurantmanagement.Pojos.User;
 
 import java.util.Date;
@@ -18,8 +19,11 @@ public class UserDetailResponse {
     private String userEmail;
     private String userAddress;
     private String userImage;
+    private String branchName = null;
+    private String branchAddress = null;
+    private String typeStaff = null;
 
-    public UserDetailResponse(User user){
+    public UserDetailResponse(User user, Staff staff){
         id = user.getId();
         userIdCard = user.getUserIdCard();
         userPhoneNumber = user.getUserPhoneNumber();
@@ -33,6 +37,11 @@ public class UserDetailResponse {
         userEmail = user.getUserEmail();
         userAddress = user.getUserAddress();
         userImage = user.getUserImage();
+        if(staff.getId() != null) {
+            branchName = staff.getBranch().getBranchName();
+            branchAddress = staff.getBranch().getBranchAddress();
+            typeStaff = staff.getTypeStaff().getTypeStaffName();
+        }
     }
 
     public Integer getId() {
@@ -137,5 +146,29 @@ public class UserDetailResponse {
 
     public void setUserImage(String userImage) {
         this.userImage = userImage;
+    }
+
+    public String getBranchName() {
+        return branchName;
+    }
+
+    public void setBranchName(String branchName) {
+        this.branchName = branchName;
+    }
+
+    public String getBranchAddress() {
+        return branchAddress;
+    }
+
+    public void setBranchAddress(String branchAddress) {
+        this.branchAddress = branchAddress;
+    }
+
+    public String getTypeStaff() {
+        return typeStaff;
+    }
+
+    public void setTypeStaff(String typeStaff) {
+        this.typeStaff = typeStaff;
     }
 }
