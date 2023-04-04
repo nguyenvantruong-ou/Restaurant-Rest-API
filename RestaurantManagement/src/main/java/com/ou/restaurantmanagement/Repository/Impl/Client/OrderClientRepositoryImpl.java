@@ -14,6 +14,8 @@ import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Repository
@@ -72,7 +74,30 @@ public class OrderClientRepositoryImpl implements OrderClientRepository {
         }
     }
 
+    @Override
+    public List<Lobby> getListLobbiesByDate(Date date, String lesson) {
+        List<Lobby> lobbies = _em.createQuery("SELECT l FROM Lobby l WHERE l.lobIsActive = true", Lobby.class)
+                .getResultList();
 
+        List<Lobby> results = new ArrayList<>();
+        lobbies.forEach(s -> {
+            if(!checkExistLobby(s.getId(), date, lesson))
+                results.add(s);
+        });
+        return results;
+    }
+
+    private boolean checkExistLobby(int lobId, Date date, String lesson){
+        LocalDate bookingDate = LocalDate.of(date.getYear() + 1900, date.getMonth() + 1, date.getDate());;
+        int count = _em.createQuery("SELECT o FROM Order o WHERE o.lob.id = :lobId " +
+                        "AND o.ordBookingDate = :date AND o.ordBookingLesson = :lesson", Order.class)
+                .setParameter("lobId", lobId)
+                .setParameter("date", bookingDate)
+                .setParameter("lesson", lesson)
+                .getResultList().size();
+
+        return count > 0 ? true : false;
+    }
 
     private int getCoefficientID(LocalDate booking_date, String lesson){
         try {

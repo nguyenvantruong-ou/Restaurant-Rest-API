@@ -3,13 +3,17 @@ package com.ou.restaurantmanagement.Service.Impl.Client;
 import com.ou.restaurantmanagement.DTO.Constant.Code;
 import com.ou.restaurantmanagement.DTO.Request.IBaseRequest;
 import com.ou.restaurantmanagement.DTO.Request.Order.BillRequestDTO;
+import com.ou.restaurantmanagement.DTO.Request.Order.DateLessonRequest;
 import com.ou.restaurantmanagement.DTO.Request.Order.OrderRequestDTO;
 import com.ou.restaurantmanagement.DTO.Response.Common;
 import com.ou.restaurantmanagement.DTO.Response.IBaseResponse;
+import com.ou.restaurantmanagement.Pojos.Lobby;
 import com.ou.restaurantmanagement.Repository.Client.OrderClientRepository;
 import com.ou.restaurantmanagement.Service.Client.OrderClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class OrderClientServiceImpl implements OrderClientService {
@@ -35,6 +39,13 @@ public class OrderClientServiceImpl implements OrderClientService {
             System.err.println("ERROR: " + e);
             return new Common(Code.INVALID, null, "Vui lòng kiểm tra lại!");
         }
+    }
+
+    @Override
+    public List<Lobby> getLobbiesOrder(DateLessonRequest request) {
+        if(request.getLesson().length() < 1)
+            throw new IllegalArgumentException("Bad Request!");
+        return _orderRepository.getListLobbiesByDate(request.getBookingDate(), request.getLesson());
     }
 
 }
