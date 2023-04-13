@@ -59,8 +59,8 @@ public class UserClientServiceImpl implements com.ou.restaurantmanagement.Servic
         if(errorPW != null)
             return new Common(Code.INVALID_REQUEST, null, errorPW);
 
-        if(!_checkValidate.isIdCart(register.getUserIdCard(), 0))
-            return new Common(Code.INVALID_REQUEST, null, "CMND/CCCD đã tồn tại!");
+//        if(!_checkValidate.isIdCart(register.getUserIdCard(), 0))
+//            return new Common(Code.INVALID_REQUEST, null, "CMND/CCCD đã tồn tại!");
         if(!_checkValidate.isUsername(register.getUserUsename(), 0))
             return new Common(Code.INVALID_REQUEST, null, "Tên tài khoản đã tồn tại!");
         // password

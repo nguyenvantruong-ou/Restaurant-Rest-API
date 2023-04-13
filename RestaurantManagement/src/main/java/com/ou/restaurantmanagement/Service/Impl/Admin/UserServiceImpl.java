@@ -84,9 +84,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public IBaseResponse updateUserName(IBaseRequest input) {
         UserRequestDTO user = (UserRequestDTO) input;
-        if (!_userRepository.isIdCart(user.getUserIdCard(), user.getId()))
-            return new Common(Code.INVALID, null, "Số CMND đã tồn tại!");
-        else if(!_userRepository.isUsername(user.getUserUsename(), user.getId()))
+//        if (!_userRepository.isIdCart(user.getUserIdCard(), user.getId()))
+//            return new Common(Code.INVALID, null, "Số CMND đã tồn tại!");
+//        else
+            if(!_userRepository.isUsername(user.getUserUsename(), user.getId()))
             return new Common(Code.INVALID, null, "Tên tài khoản đã tồn tại!");
             else{  // dữ liệu hợp lệ
                 try {
