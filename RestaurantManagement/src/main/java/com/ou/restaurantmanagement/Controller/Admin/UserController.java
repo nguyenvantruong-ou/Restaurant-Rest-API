@@ -60,7 +60,7 @@ public class UserController {
 
     // sửa thông tin user
     @PostMapping("/update-user")
-    @PreAuthorize("hasAnyAuthority('ADMIN','USER')")
+    @PreAuthorize("hasAnyAuthority('ADMIN','STAFF','USER')")
     @CrossOrigin
     public IBaseResponse updateUser(@RequestParam("file") MultipartFile f, String user){
         UserRequestDTO u;
