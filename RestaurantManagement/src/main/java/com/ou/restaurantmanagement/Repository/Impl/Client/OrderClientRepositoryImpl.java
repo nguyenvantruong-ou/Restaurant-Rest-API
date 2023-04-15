@@ -4,6 +4,8 @@ import com.ou.restaurantmanagement.DTO.Request.IBaseRequest;
 import com.ou.restaurantmanagement.DTO.Request.Order.OrderMenuRequestDTO;
 import com.ou.restaurantmanagement.DTO.Request.Order.OrderRequestDTO;
 import com.ou.restaurantmanagement.DTO.Request.Order.OrderServiceRequestDTO;
+import com.ou.restaurantmanagement.DTO.Request.Order.TotalMoneyRequestDTO;
+import com.ou.restaurantmanagement.DTO.Response.TotalMoneyResponse;
 import com.ou.restaurantmanagement.Pojos.*;
 import com.ou.restaurantmanagement.Repository.Client.OrderClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,11 +14,11 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Repository
 @Transactional
@@ -48,12 +50,16 @@ public class OrderClientRepositoryImpl implements OrderClientRepository {
             newOrder.setOrdCreatedDate(LocalDate.now());
             newOrder.setOrdBookingDate(req.getOrd_booking_date());
             newOrder.setOrdBookingLesson(req.getOrd_booking_lesson());
+
             User user = new User();
             user.setId(req.getUser_id());
+
             newOrder.setUser(user);
+
             Coefficient coefficient = new Coefficient();
             coefficient.setId(getCoefficientID(req.getOrd_booking_date(), req.getOrd_booking_lesson()));
             newOrder.setCoef(coefficient);
+
             Lobby lobby = new Lobby();
             lobby.setId(req.getLob_id());
             newOrder.setLob(lobby);
@@ -85,6 +91,77 @@ public class OrderClientRepositoryImpl implements OrderClientRepository {
                 results.add(s);
         });
         return results;
+    }
+
+    @Override
+    public TotalMoneyResponse calculateTotalAmount(TotalMoneyRequestDTO request) {
+        BigDecimal totalMenu = new BigDecimal(0);
+        BigDecimal totalService = new BigDecimal(0);
+
+        // hệ số tăng giá
+        int coefficientID = getCoefficientID(request.getBookingDate(), request.getLesson());
+        Coefficient coefficient = _em.createQuery("SELECT c FROM Coefficient c WHERE c.id = :id", Coefficient.class)
+                .setParameter("id", coefficientID)
+                .getSingleResult();
+        String servicesFees = (int) (coefficient.getCoefValue() * 100) - 100 + " %";
+
+        // service
+        for(int s : request.getListServices()) {
+            BigDecimal money= _em.createQuery("SELECT s.serPrice FROM Service s WHERE s.id =: id", BigDecimal.class)
+                    .setParameter("id", s)
+                    .getSingleResult();
+            totalService = totalService.add(money);
+        }
+
+        // menu
+        for(OrderMenuRequestDTO s : request.getListMenus()) {
+            BigDecimal money= _em.createQuery("SELECT m.menuPrice FROM Menu m WHERE m.id =: id", BigDecimal.class)
+                    .setParameter("id", s.getMenuID())
+                    .getSingleResult();
+            money = money.multiply(new BigDecimal(s.getAmountTable()));
+            totalMenu = totalMenu.add(money);
+        }
+
+        // totla money
+        BigDecimal total = totalService.add(totalMenu).add(request.getLobbyPrice());
+
+        // discount
+        TimeZone timeZone = TimeZone.getTimeZone("Asia/Ho_Chi_Minh");
+        Calendar calendar = Calendar.getInstance(timeZone);
+        Date now = calendar.getTime();
+
+        List<Discount> discounts = _em.createQuery("SELECT d FROM Discount d WHERE :now > d.discountFromDate " +
+                        "AND :now < d.discountToDate", Discount.class)
+                .setParameter("now", now)
+                .getResultList();
+        double totalDiscount = 0.0;
+        for (Discount s : discounts){
+            totalDiscount += s.getDiscountValue();
+        };
+        String discountValue = (int)(totalDiscount * 100) + " %";
+
+        // check type customer
+        TypeCustomer typeCustomer = _em.createQuery("SELECT t FROM TypeCustomer t, User u " +
+                        "WHERE u.id =: id AND t.id = u.typeCustomer.id", TypeCustomer.class)
+                .setParameter("id", request.getUserId())
+                .getSingleResult();
+        String typeCustomerDiscount =  (int)(typeCustomer.getTypeCustomerDiscount() * 100) + " %";
+
+        TotalMoneyResponse result = new TotalMoneyResponse();
+        result.setTotal(total);
+        result.setServicesFees(servicesFees);
+        result.setDiscountTime(discountValue);
+        result.setTypeCustomer(typeCustomer.getTypeCustomerName());
+        result.setTypeCustomerDiscount(typeCustomerDiscount);
+
+        BigDecimal moneyOrder = total.multiply(new BigDecimal(coefficient.getCoefValue()))
+                .setScale(0, RoundingMode.UP);
+
+        BigDecimal totalResult = moneyOrder.subtract(moneyOrder.multiply(new BigDecimal(totalDiscount))).setScale(0, RoundingMode.UP);
+        totalResult = totalResult.subtract(moneyOrder.multiply(new BigDecimal(typeCustomer.getTypeCustomerDiscount()))).setScale(0, RoundingMode.UP);
+
+        result.setFinalTotalMoney(totalResult);
+        return result;
     }
 
     private boolean checkExistLobby(int lobId, Date date, String lesson){
@@ -161,5 +238,4 @@ public class OrderClientRepositoryImpl implements OrderClientRepository {
                 .setParameter("id", user_id)
                 .getSingleResult();
     }
-
 }

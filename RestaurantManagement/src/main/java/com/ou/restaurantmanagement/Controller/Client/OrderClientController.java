@@ -6,6 +6,7 @@ import com.ou.restaurantmanagement.DTO.Request.IBaseRequest;
 import com.ou.restaurantmanagement.DTO.Request.Order.BillRequestDTO;
 import com.ou.restaurantmanagement.DTO.Request.Order.DateLessonRequest;
 import com.ou.restaurantmanagement.DTO.Request.Order.OrderRequestDTO;
+import com.ou.restaurantmanagement.DTO.Request.Order.TotalMoneyRequestDTO;
 import com.ou.restaurantmanagement.DTO.Response.Common;
 import com.ou.restaurantmanagement.DTO.Response.IBaseResponse;
 import com.ou.restaurantmanagement.Service.Client.OrderClientService;
@@ -44,6 +45,16 @@ public class OrderClientController {
         }
         catch (Exception e){
             return new Common(Code.ERROR, e.getMessage(), "Vui lòng kiểm tra lại!");
+        }
+    }
+
+    @PostMapping("/order/total-amount")
+    @CrossOrigin
+    public IBaseResponse calculateTotalAmount(@RequestBody TotalMoneyRequestDTO request){
+        try {
+            return new Common(Code.OK, _orderService.totalMoney(request), "Thành công");
+        } catch (Exception e) {
+            return new Common(Code.ERROR, null, "Tính tiền thất bại!");
         }
     }
 }
