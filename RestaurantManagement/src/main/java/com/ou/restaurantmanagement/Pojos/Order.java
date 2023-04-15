@@ -1,6 +1,7 @@
 package com.ou.restaurantmanagement.Pojos;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Entity
@@ -34,6 +35,9 @@ public class Order {
 
     @Column(name = "ord_is_payment")
     private boolean ordIsPayment;
+
+    @Column(name = "ord_total_money", length = 45)
+    private BigDecimal ordTotalMoney;
 
     public Integer getId() {
         return id;
@@ -105,4 +109,11 @@ public class Order {
         this.ordIsPayment = ordIsPayment;
     }
 
+    public BigDecimal getOrdTotalMoney() {
+        return ordTotalMoney;
+    }
+
+    public void setOrdTotalMoney(BigDecimal ordTotalMoney) {
+        this.ordTotalMoney = ordTotalMoney;
+    }
 }

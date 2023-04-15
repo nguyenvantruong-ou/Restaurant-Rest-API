@@ -50,6 +50,7 @@ public class OrderClientRepositoryImpl implements OrderClientRepository {
             newOrder.setOrdCreatedDate(LocalDate.now());
             newOrder.setOrdBookingDate(req.getOrd_booking_date());
             newOrder.setOrdBookingLesson(req.getOrd_booking_lesson());
+            newOrder.setOrdTotalMoney(req.getTotalMoney());
 
             User user = new User();
             user.setId(req.getUser_id());

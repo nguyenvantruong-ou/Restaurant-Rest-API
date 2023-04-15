@@ -2,6 +2,7 @@ package com.ou.restaurantmanagement.DTO.Request.Order;
 
 import com.ou.restaurantmanagement.DTO.Request.IBaseRequest;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
@@ -13,6 +14,7 @@ public class OrderRequestDTO implements IBaseRequest {
     private int lob_id;
     private List<OrderServiceRequestDTO> listService;
     private List<OrderMenuRequestDTO> listMenu;
+    private BigDecimal totalMoney;
 
     public LocalDate getOrd_booking_date() {
         return ord_booking_date;
@@ -60,5 +62,13 @@ public class OrderRequestDTO implements IBaseRequest {
 
     public void setListMenu(List<OrderMenuRequestDTO> listMenu) {
         this.listMenu = listMenu;
+    }
+
+    public BigDecimal getTotalMoney() {
+        return totalMoney;
+    }
+
+    public void setTotalMoney(BigDecimal totalMoney) {
+        this.totalMoney = totalMoney;
     }
 }
