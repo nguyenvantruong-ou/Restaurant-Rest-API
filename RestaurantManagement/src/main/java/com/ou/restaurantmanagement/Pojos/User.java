@@ -2,7 +2,6 @@ package com.ou.restaurantmanagement.Pojos;
 
 
 import java.util.Date;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
 
@@ -55,6 +54,10 @@ public class User {
 
     @Column(name = "user_image", nullable = false)
     private String userImage;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "type_cus_id")
+    private TypeCustomer typeCustomer;
 
 
     public Integer getId() {
@@ -194,5 +197,13 @@ public class User {
      */
     public void setUserAddress(String userAddress) {
         this.userAddress = userAddress;
+    }
+
+    public TypeCustomer getTypeCustomer() {
+        return typeCustomer;
+    }
+
+    public void setTypeCustomer(TypeCustomer typeCustomer) {
+        this.typeCustomer = typeCustomer;
     }
 }
