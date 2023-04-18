@@ -33,6 +33,9 @@ import java.util.Date;
 public class UserClientServiceImpl implements com.ou.restaurantmanagement.Service.Client.UserClientService {
     @Value("${jwt.secret-key}")
     private String _jwtSecret;
+
+    @Value("${mail.body.register}")
+    private String _content;
     @Autowired
     private PasswordEncoder passwordEncoder;
 
@@ -107,10 +110,10 @@ public class UserClientServiceImpl implements com.ou.restaurantmanagement.Servic
 
         // send mail
         int code = (int) Math.floor(((Math.random() * 899999) + 100000));
-        String content = code + " là mã xác nhận của bạn!" +
-                " Vui lòng không cung cấp mật mã này cho bất kì ai trong bất kì trường hợp nào.";
+//        String content = String.format("<p> <span style='color: red'>%d</span> là mã xác nhận của bạn!" +
+//                " Vui lòng không cung cấp mật mã này cho bất kì ai trong bất kì trường hợp nào.</p>", code);
         MailUtil mail = new MailUtil();
-        mail.SendMail(user.getUserEmail(), content);
+        mail.SendMail(user.getUserEmail(), String.format(_content, code));
 
         // create new token
         String token = _jwtRegisterUtil.CreateToken(code);

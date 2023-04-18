@@ -4,6 +4,7 @@ import com.ou.restaurantmanagement.DTO.Constant.Role;
 import com.ou.restaurantmanagement.DTO.Request.IBaseRequest;
 import com.ou.restaurantmanagement.DTO.Request.RegisterRequestDTO;
 import com.ou.restaurantmanagement.DTO.Response.CommentStatisticResponse;
+import com.ou.restaurantmanagement.Pojos.TypeCustomer;
 import com.ou.restaurantmanagement.Pojos.User;
 import com.ou.restaurantmanagement.Pojos.UserToken;
 import com.ou.restaurantmanagement.Repository.Client.UserClientRepository;
@@ -51,6 +52,12 @@ public class UserClientRepositoryImpl implements UserClientRepository {
             user.setUserAddress(req.getUserAddress());
             user.setUserImage(req.getUserImage());
             user.setUserRole(Role.USER);
+
+            TypeCustomer t = new TypeCustomer();
+            t.setId(1);
+
+            user.setTypeCustomer(t);
+
             _em.persist(user);
             return getLastestId();
         }
