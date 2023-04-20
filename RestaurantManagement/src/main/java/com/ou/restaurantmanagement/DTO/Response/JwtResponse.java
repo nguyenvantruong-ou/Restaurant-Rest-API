@@ -21,6 +21,14 @@ public class JwtResponse {
         this.setRoles(roles.stream().toList().get(0).toString());
     }
 
+    public JwtResponse(String token, String refreshToken, int user_id, String username, String role) {
+        this.setToken(token);
+        this.setRefreshToken(refreshToken);
+        this.setUserID(user_id);
+        this.setUsername(username);
+        this.setRoles(role);
+    }
+
     public String getToken() {
         return token;
     }

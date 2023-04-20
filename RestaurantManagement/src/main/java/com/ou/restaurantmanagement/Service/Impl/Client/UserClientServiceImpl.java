@@ -1,10 +1,14 @@
 package com.ou.restaurantmanagement.Service.Impl.Client;
 
 import com.ou.restaurantmanagement.DTO.Constant.Code;
+import com.ou.restaurantmanagement.DTO.Constant.Role;
 import com.ou.restaurantmanagement.DTO.Request.IBaseRequest;
+import com.ou.restaurantmanagement.DTO.Request.LoginSocailRequestDTO;
 import com.ou.restaurantmanagement.DTO.Request.RegisterRequestDTO;
 import com.ou.restaurantmanagement.DTO.Response.Common;
 import com.ou.restaurantmanagement.DTO.Response.IBaseResponse;
+import com.ou.restaurantmanagement.DTO.Response.JwtResponse;
+import com.ou.restaurantmanagement.Pojos.TypeCustomer;
 import com.ou.restaurantmanagement.Pojos.User;
 import com.ou.restaurantmanagement.Pojos.UserToken;
 import com.ou.restaurantmanagement.Repository.Admin.UserRepository;
@@ -16,6 +20,8 @@ import com.ou.restaurantmanagement.Utils.MailUtil;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
+
+import java.util.Calendar;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +42,16 @@ public class UserClientServiceImpl implements com.ou.restaurantmanagement.Servic
 
     @Value("${mail.body.register}")
     private String _content;
+
+    @Value("${avatar_default}")
+    private String _avatar;
+
+    @Value("${jwt.exp.access-token}")
+    private int _expAccessToken;
+
+    @Value("${jwt.exp.refresh-token}")
+    private int _expRefreshToken;
+
     @Autowired
     private PasswordEncoder passwordEncoder;
 
@@ -160,5 +176,53 @@ public class UserClientServiceImpl implements com.ou.restaurantmanagement.Servic
         if (id < 1)
             throw new ArithmeticException("Id phải lớn hơn 0!");
         return _userRepository.getUserById(id);
+    }
+
+    @Override
+    public Common loginSocial(LoginSocailRequestDTO request) {
+        if(request.getUsername() == null || request.getPassword() == null
+        || request.getEmail() == null || request.getFirstName() == null)
+            return new Common(Code.INVALID_REQUEST, null, "Bad Request!");
+
+        User u = new User();
+        User uRes = _userRepository.getUserByUsername(request.getUsername());
+        if(uRes == null){
+            u.setUserUsename(request.getUsername());
+            u.setUserPassword(passwordEncoder.encode(request.getPassword()));
+            u.setUserEmail(request.getEmail());
+            u.setUserLastName(request.getLastName());
+            u.setUserFirstName(request.getFirstName());
+            u.setUserImage(_avatar);
+            u.setUserRole(Role.USER);
+            u.setUserSex(true);
+
+            u.setUserIsActive(true);
+            u.setUserIdCard("");
+            u.setUserPhoneNumber("");
+            u.setUserAddress("Việt Nam");
+
+            Calendar calendar = Calendar.getInstance();
+            calendar.set(Calendar.YEAR, 1900);
+            calendar.set(Calendar.MONTH, Calendar.JANUARY);
+            calendar.set(Calendar.DAY_OF_MONTH, 1);
+
+            Date date = calendar.getTime();
+            u.setUserDateOfBirth(date);
+            u.setUserJoinedDate(new Date());
+
+            TypeCustomer t = new TypeCustomer();
+            t.setId(1);
+            u.setTypeCustomer(t);
+
+            uRes = _userRepository.loginSocial(u);
+        }
+
+
+        JwtUtil jwt = new JwtUtil();
+        String accessToken = jwt.createNewToken(uRes, _expAccessToken);
+        String refreshToken = jwt.createNewToken(uRes, _expRefreshToken);
+
+        JwtResponse result = new JwtResponse(accessToken, refreshToken, uRes.getId(),u.getUserUsename(), u.getUserRole());
+        return new Common(Code.OK, result, "Đăng nhập thành công");
     }
 }

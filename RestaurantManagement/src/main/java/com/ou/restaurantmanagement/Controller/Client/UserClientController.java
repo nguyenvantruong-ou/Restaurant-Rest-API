@@ -6,6 +6,7 @@ import com.ou.restaurantmanagement.DTO.Constant.Code;
 import com.ou.restaurantmanagement.DTO.Constant.Role;
 import com.ou.restaurantmanagement.DTO.Request.ConfirmRegisterRequestDTO;
 import com.ou.restaurantmanagement.DTO.Request.LoginRequestDTO;
+import com.ou.restaurantmanagement.DTO.Request.LoginSocailRequestDTO;
 import com.ou.restaurantmanagement.DTO.Request.RegisterRequestDTO;
 import com.ou.restaurantmanagement.DTO.Response.*;
 import com.ou.restaurantmanagement.Pojos.Staff;
@@ -164,6 +165,17 @@ public class UserClientController {
         catch (Exception e)
         {
             return new Common(Code.NOT_FOUND, null, e.getMessage());
+        }
+    }
+
+    @PostMapping("/login-socail")
+    @CrossOrigin
+    public Common LoginSocail(@RequestBody LoginSocailRequestDTO request){
+        try {
+            return _userService.loginSocial(request);
+        }
+        catch (Exception e){
+            return new Common(Code.ERROR, null, "Vui Lòng kiểm tra lại!");
         }
     }
 }
