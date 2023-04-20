@@ -2,6 +2,8 @@ package com.ou.restaurantmanagement.Repository.Impl.Client;
 
 import com.ou.restaurantmanagement.DTO.Constant.Role;
 import com.ou.restaurantmanagement.DTO.Request.IBaseRequest;
+import com.ou.restaurantmanagement.DTO.Request.LoginRequestDTO;
+import com.ou.restaurantmanagement.DTO.Request.LoginSocailRequestDTO;
 import com.ou.restaurantmanagement.DTO.Request.RegisterRequestDTO;
 import com.ou.restaurantmanagement.DTO.Response.CommentStatisticResponse;
 import com.ou.restaurantmanagement.Pojos.TypeCustomer;
@@ -84,11 +86,11 @@ public class UserClientRepositoryImpl implements UserClientRepository {
 
     @Override
     public User getUserByUsername(String username) {
-        User user = _em.createQuery("SELECT u FROM User u WHERE u.userUsername like :username"
+         List<User> users = _em.createQuery("SELECT u FROM User u WHERE u.userUsername like :username"
                         ,User.class)
                 .setParameter("username", username)
-                .getSingleResult();
-        return user;
+                .getResultList();
+        return users.size() != 0 ? users.get(0) : null;
     }
 
     @Override
@@ -118,5 +120,25 @@ public class UserClientRepositoryImpl implements UserClientRepository {
                 .getSingleResult();
         return result;
     }
+
+    @Override
+    public User loginSocial(User u) {
+        _em.persist(u);
+
+        return _em.createQuery("SELECT  u FROM User u WHERE u.userUsername =: username", User.class)
+                .setParameter("username", u.getUserUsename())
+                .getSingleResult();
+    }
+
+//    @Override
+//    public User checkLogin(String username, String pw) {
+//        List<User> users  = _em.createQuery("SELECT u FROM User u WHERE u.userUsername = :username " +
+//                "AND u.userPassword = :pw ", User.class)
+//                .setParameter("username", username)
+//                .setParameter("pw", pw)
+//                .getResultList();
+//
+//        return  users.size() != 0 ? users.get(0) : null;
+//    }
 
 }

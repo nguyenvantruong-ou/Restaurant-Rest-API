@@ -17,7 +17,7 @@ import java.util.Date;
 public class JwtUtil {
     private static final Logger logger = LoggerFactory.getLogger(JwtUtil.class);
     @Value("${jwt.secret-key}")
-    private String jwtSecret;
+    private String jwtSecret = "secretKeyBytenguyenvantruongquangnamdananasjhfjhgfjheghiwmqreffdsgsfgfghhghjfhjgjdgsfgsdftgdfsgdfggfggg";
     public String createToken(Authentication authentication, int jwtExpiration){
         UserPrinciple userPrinciple = (UserPrinciple) authentication.getPrincipal();
 

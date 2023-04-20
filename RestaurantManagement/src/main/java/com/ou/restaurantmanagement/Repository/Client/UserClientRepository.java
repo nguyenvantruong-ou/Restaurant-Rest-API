@@ -13,4 +13,6 @@ public interface UserClientRepository {
     void updateUserToken(UserToken userToken);
     UserToken readUserToken(String username);
     User getUserById(int id);
+    User loginSocial(User u);
+//    User checkLogin(String username, String pw);
 }

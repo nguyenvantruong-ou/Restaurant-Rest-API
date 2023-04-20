@@ -1,6 +1,7 @@
 package com.ou.restaurantmanagement.Service.Client;
 
 import com.ou.restaurantmanagement.DTO.Request.IBaseRequest;
+import com.ou.restaurantmanagement.DTO.Request.LoginSocailRequestDTO;
 import com.ou.restaurantmanagement.DTO.Response.Common;
 import com.ou.restaurantmanagement.DTO.Response.IBaseResponse;
 import com.ou.restaurantmanagement.Pojos.User;
@@ -14,4 +15,5 @@ public interface UserClientService {
     IBaseResponse confirm(String username, int code);
     void sendCode(String username, int userId) throws MessagingException, UnsupportedEncodingException;
     User getProfile(int id);
+    Common loginSocial(LoginSocailRequestDTO request);
 }
