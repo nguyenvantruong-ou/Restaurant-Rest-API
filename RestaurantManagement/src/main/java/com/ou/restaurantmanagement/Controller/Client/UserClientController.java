@@ -168,7 +168,7 @@ public class UserClientController {
         }
     }
 
-    @PostMapping("/login-socail")
+    @PostMapping("/login-social")
     @CrossOrigin
     public Common LoginSocail(@RequestBody LoginSocailRequestDTO request){
         try {
