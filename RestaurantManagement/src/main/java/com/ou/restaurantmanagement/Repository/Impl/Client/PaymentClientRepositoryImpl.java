@@ -29,7 +29,7 @@ public class PaymentClientRepositoryImpl implements PaymentClientRepository {
             bill.setId(req.getOrderID());
             bill.setBillCreatedDate(LocalDate.now());
             bill.setUser_id(req.getUserID());
-            bill.setBillTotalMoney(totalMoney(req.getOrderID()));
+            bill.setBillTotalMoney(getOrderByID(req.getOrderID()).getOrdTotalMoney());
             bill.setBillNote(noteBill(req));
             Discount d = new Discount();
             d.setId(1);
