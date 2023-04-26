@@ -26,7 +26,7 @@ public class PaymentClientController {
         return _paymentService.paymentMomo(input);
     }
 
-    @PostMapping("/add-bill-for-momo")
+    @PostMapping("/e-payment/bill")
     @CrossOrigin
     public IBaseResponse addbill(@RequestParam("user-id") int user_id,
                                 @RequestParam("order-id") int order_id){
@@ -45,6 +45,13 @@ public class PaymentClientController {
     @PreAuthorize("hasAnyAuthority('USER', 'STAFF')")
     @CrossOrigin
     public IBaseResponse paymentSuccess(){
+        return _paymentService.paymentSuccess();
+    }
+
+    @PostMapping("/payment")
+    @PreAuthorize("hasAnyAuthority('USER', 'STAFF')")
+    @CrossOrigin
+    public IBaseResponse payment(){
         return _paymentService.paymentSuccess();
     }
 }

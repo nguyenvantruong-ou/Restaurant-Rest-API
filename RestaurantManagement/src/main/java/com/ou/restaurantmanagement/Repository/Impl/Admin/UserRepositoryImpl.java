@@ -27,7 +27,7 @@ public class UserRepositoryImpl implements UserRepository {
     public UserResponse getList(IBaseRequest req) {
         UserRequestDTO input = (UserRequestDTO) req;
         TypedQuery<User> tp = _em.createQuery("SELECT a FROM User a  " +
-                "WHERE (a.userFirstName LIKE :kw OR a.userLastName LIKE :kw)", User.class)
+                "WHERE CONCAT(a.userLastName, ' ', a.userFirstName) LIKE :kw", User.class)
                 .setParameter("kw", "%"+ input.getKw() + "%");
         List<User> listUser = tp.getResultList();
 
