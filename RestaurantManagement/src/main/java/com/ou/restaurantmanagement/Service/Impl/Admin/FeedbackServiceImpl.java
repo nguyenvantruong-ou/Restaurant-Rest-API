@@ -29,7 +29,7 @@ public class FeedbackServiceImpl implements FeedbackService {
             return new Common(Code.OK, _feedbackRepository.getListFeedback(), "Thành công");
         }
         catch (Exception e){
-            return new Common(Code.NOT_FOUND, null, "Vui lòng kiểm tra lại!");
+            return new Common(Code.ERROR, null, e.getMessage());
         }
     }
 

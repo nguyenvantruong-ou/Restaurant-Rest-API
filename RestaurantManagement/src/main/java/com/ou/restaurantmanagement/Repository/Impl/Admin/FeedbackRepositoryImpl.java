@@ -3,6 +3,7 @@ package com.ou.restaurantmanagement.Repository.Impl.Admin;
 import com.ou.restaurantmanagement.DTO.Response.FeedbackDetail;
 import com.ou.restaurantmanagement.DTO.Response.FeedbackGeneral;
 import com.ou.restaurantmanagement.Pojos.Feedback;
+import com.ou.restaurantmanagement.Pojos.User;
 import com.ou.restaurantmanagement.Repository.Admin.FeedbackRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -28,9 +29,18 @@ public class FeedbackRepositoryImpl implements FeedbackRepository {
 
     @Override
     public List<FeedbackGeneral> getListFeedback() {
-        List<Object[]> r = _em.createQuery("SELECT distinct f.user.userUsername, f.user.userLastName, f.user.userFirstName," +
-                        "f.user.id, f.user.userImage FROM Feedback f " +
-                        " ORDER BY f.id DESC", Object[].class)
+//        List<Object[]> r = _em.createQuery("SELECT f.user.userUsername, f.user.userLastName, f.user.userFirstName," +
+//                        "f.user.id, f.user.userImage FROM Feedback f " +
+//                        " ORDER BY f.id DESC", Object[].class)
+//                .getResultList();
+        List<Object[]> r = _em.createQuery("SELECT f.user.userUsername, f.user.userLastName, f.user.userFirstName," +
+                        "f.user.id, f.user.userImage " +
+                        "FROM Feedback f " +
+                        "WHERE f.id IN (" +
+                        "   SELECT MAX(f2.id) " +
+                        "   FROM Feedback f2 " +
+                        "   GROUP BY f2.user.id" +
+                        ")", Object[].class)
                 .getResultList();
         List<FeedbackGeneral> results= new ArrayList<>();
         r.forEach(s->{
